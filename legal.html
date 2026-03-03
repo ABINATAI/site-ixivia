@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Legal | Ixivia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --black: #030303;
+            --deep-grey: #0a0a0a;
+            --chrome: linear-gradient(145deg, #e6e6e6 0%, #ffffff 10%, #8e8e8e 50%, #fcfcfc 90%, #d1d1d1 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+
+        body {
+            background-color: var(--black);
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Efeito de Malha (Grid) de Fundo */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px; z-index: -2;
+        }
+
+        header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-small {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-back {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--neon-blue);
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-back:hover { background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 10px var(--neon-blue); }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .nav-legal {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            background: var(--deep-grey);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .nav-legal a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .nav-legal a:hover { background: var(--neon-blue); color: #000; }
+
+        section { margin-bottom: 60px; }
+
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 30px; text-align: center; }
+        h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--neon-blue); margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        h3 { color: #fff; margin: 20px 0 10px; font-size: 1.2rem; }
+        
+        p { margin-bottom: 15px; font-size: 1.1rem; }
+        ul { margin-bottom: 15px; padding-left: 20px; }
+        li { margin-bottom: 8px; font-size: 1.1rem; }
+
+        .highlight-box {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid red;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #ffb3b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-small">
+            <img src="icon.png" alt="Ícone" style="height: 30px; border-radius: 50%;">
+            IXIVIA
+        </a>
+        <a href="index.html" class="btn-back">VOLTAR AO SITE</a>
+    </header>
+
+    <div class="container">
+        <h1>Documentação Legal Centralizada</h1>
+
+        <div class="nav-legal">
+            <a href="#termos">Termos de Uso</a>
+            <a href="#diretrizes">Diretrizes da Comunidade</a>
+            <a href="#privacidade">Política de Privacidade</a>
+            <a href="#emissoes">Missões de IA (Nível 3)</a>
+        </div>
+
+        <section id="termos">
+            <h2>(A) TERMOS E CONDIÇÕES DE USO</h2>
+            <div class="highlight-box">
+                <strong>ATENÇÃO:</strong> Ao utilizar o Ixivia, você declara ter lido, compreendido e concordado integralmente com os termos abaixo.
+            </div>
+
+            <h3>CLÁUSULA 1 — INEXISTÊNCIA DE VÍNCULO EMPREGATÍCIO</h3>
+            <p>O Ixivia é uma plataforma de tecnologia que atua exclusivamente como ambiente digital de anúncios e conexão entre partes.</p>
+            <p>O Profissional declara e reconhece que:</p>
+            <ul>
+                <li>a) Possui liberdade total para aceitar ou recusar chamados, sem qualquer subordinação ou penalidade.</li>
+                <li>b) Define de forma autônoma seus preços, horários, métodos, ferramentas e condições de trabalho.</li>
+                <li>c) Não possui qualquer obrigação de exclusividade, podendo atuar em outras plataformas ou atender clientes próprios.</li>
+                <li>d) Assume integralmente os riscos da atividade econômica exercida, incluindo encargos tributários, previdenciários e seguros.</li>
+            </ul>
+            <p><strong>O Ixivia não é empregador, agência de empregos, representante comercial ou intermediador contratual.</strong></p>
+
+            <h3>CLÁUSULA 2 — LIMITAÇÃO DE RESPONSABILIDADE</h3>
+            <p>O Ixivia não participa da negociação, execução ou pagamento dos serviços contratados entre Cliente e Profissional. Portanto:</p>
+            <ul>
+                <li><strong>a) Responsabilidade Civil:</strong> Eventuais danos materiais ou morais causados por uma das partes à outra são de responsabilidade exclusiva dos envolvidos.</li>
+                <li><strong>b) Responsabilidade Penal:</strong> Atos ilícitos praticados durante a prestação do serviço poderão ser comunicados às autoridades competentes. O Ixivia colaborará com investigações mediante ordem judicial, nos termos do Marco Civil da Internet.</li>
+            </ul>
+
+            <h3>CLÁUSULA 3 — POLÍTICA DE CRÉDITOS E NÃO REEMBOLSO</h3>
+            <p>Os créditos adquiridos destinam-se exclusivamente ao uso interno da plataforma (ex.: desbloqueio de contatos ou aquisição de leads).</p>
+            <ul>
+                <li><strong>a) Consumo Imediato:</strong> Ao clicar em “Aceitar” ou adquirir um lead, considera-se que o serviço digital foi integralmente prestado (entrega do dado digital).</li>
+                <li><strong>b) Não Reembolso:</strong> Em razão da natureza digital e do consumo imediato da informação disponibilizada, não haverá reembolso de créditos adquiridos ou utilizados, independentemente do resultado da negociação entre as partes.</li>
+            </ul>
+        </section>
+
+        <section id="diretrizes">
+            <h2>(B) DIRETRIZES DA COMUNIDADE</h2>
+            <p>O Ixivia nasceu para conectar talentos a necessidades reais. Para manter nossa comunidade segura, confiável e profissional, todos os usuários (Clientes e Profissionais) devem cumprir as normas abaixo:</p>
+
+            <h3>1. Honestidade é a Base</h3>
+            <p>Forneça informações verdadeiras e atualizadas em seu perfil. Perfis com nomes falsos, uso de CPF de terceiros, informações fraudulentas ou declarações de profissões não exercidas poderão ser suspensos ou banidos permanentemente.</p>
+
+            <h3>2. Respeito Mútuo</h3>
+            <p>Todos devem ser tratados com dignidade e respeito. Não toleramos discurso de ódio, discriminação, assédio, linguagem obscena, ameaças ou qualquer comportamento abusivo, seja no chat ou em atendimentos presenciais.</p>
+
+            <h3>3. Blindagem de Contatos</h3>
+            <p>É proibido inserir números de telefone, e-mails, links externos ou qualquer forma de contato direto nos campos de “Nome”, “Foto de Perfil” ou descrição. A liberação de contato ocorre exclusivamente após o aceite formal do serviço dentro do aplicativo.</p>
+
+            <h3>4. Segurança no Pagamento</h3>
+            <p>O Ixivia não intermedeia o pagamento final do serviço. Recomendamos que valores não sejam pagos antecipadamente, salvo acordo formal entre as partes. Negocie com clareza e registre as condições dentro do aplicativo sempre que possível.</p>
+
+            <h3>5. Denúncias Pró-Ativas</h3>
+            <p>Ao identificar qualquer irregularidade, utilize imediatamente o botão de denúncia. Nossa inteligência artificial e equipe de supervisão analisam cada caso para preservar a integridade da comunidade.</p>
+        </section>
+
+        <section id="privacidade">
+            <h2>(C) POLÍTICA DE PRIVACIDADE</h2>
+            <p><em>(Em conformidade com a Lei nº 13.709/2018 – LGPD)</em></p>
+            <p>O Ixivia trata dados pessoais com responsabilidade, transparência e finalidade legítima.</p>
+
+            <h3>1. Coleta de Dados Sensíveis</h3>
+            <p>Nos termos da Lei Geral de Proteção de Dados (LGPD), coletamos dados como CPF e geolocalização para as seguintes finalidades:</p>
+            <ul>
+                <li>Prevenção e combate à fraude</li>
+                <li>Segurança dos usuários</li>
+                <li>Cumprimento de obrigações legais e regulatórias</li>
+            </ul>
+            <p>Os dados são tratados com base legal adequada e protegidos por medidas técnicas e administrativas de segurança.</p>
+
+            <h3>2. Geolocalização em Segundo Plano</h3>
+            <p>Ao ativar o “Modo Plantão”, o aplicativo poderá coletar dados de localização mesmo quando estiver em segundo plano ou fechado. Essa funcionalidade é essencial para permitir que o “Radar Ixivia” identifique clientes próximos ao profissional disponível. Os dados de geolocalização não são compartilhados com terceiros para fins publicitários.</p>
+
+            <h3>3. Armazenamento e Exclusão de Dados</h3>
+            <p>Caso o usuário solicite a exclusão da conta:</p>
+            <ul>
+                <li>Os dados poderão permanecer armazenados em ambiente seguro (“Legal Archive”) por até 15 dias, exclusivamente para verificação de pendências legais ou denúncias graves.</li>
+                <li>Após esse prazo, os dados serão anonimizados ou excluídos definitivamente.</li>
+                <li>Registros obrigatórios por lei (como logs de acesso, conforme o Marco Civil da Internet) poderão ser mantidos pelo período legal exigido (ex.: 6 meses).</li>
+            </ul>
+            <p>O usuário poderá exercer seus direitos de acesso, correção, portabilidade e exclusão mediante solicitação formal.</p>
+        </section>
+
+        <section id="emissoes">
+            <h2>(D) POLÍTICA DE MISSÕES DE IA — NÍVEL 3</h2>
+            <div class="highlight-box" style="border-color: var(--neon-blue); background: rgba(0,243,255,0.05); color: #fff;">
+                Ao ativar o Nível 3, o usuário assume o papel de <strong>Agente Físico</strong> para execução de missões automatizadas.
+            </div>
+
+            <h3>1. Natureza da Atividade</h3>
+            <p>As missões consistem em locação temporária de esforço humano, sem geração de vínculo empregatício com o Ixivia ou com qualquer empresa detentora da tecnologia utilizada.</p>
+
+            <h3>2. Auditoria de Prova</h3>
+            <p>O Agente concorda que fotos, vídeos ou demais comprovações enviadas poderão ser analisados por algoritmos de auditoria e verificação técnica. A rejeição da prova por inconsistência técnica (ex.: captura de tela, manipulação de GPS, adulteração de imagem) não gera direito a pagamento ou compensação.</p>
+
+            <h3>3. Pagamento em Criptoativo</h3>
+            <p>Pagamentos realizados via USDC são considerados finais e irreversíveis após confirmação na blockchain. O Ixivia não se responsabiliza por erros no fornecimento de endereço de carteira digital, chaves incorretas ou perda de acesso pelo usuário.</p>
+        </section>
+
+    </div>
+</body>
+</html>
