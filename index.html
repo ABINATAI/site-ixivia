@@ -147,22 +147,6 @@
             background: #000;
         }
 
-        .hero-video-box::after {
-            content: "VÍDEO 1: Animação Aperto de Mãos -> Logo";
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: rgba(255,255,255,0.3); font-family: 'Orbitron'; text-align: center;
-        }
-
-        /* Aqui vai a tag de video real quando você tiver o arquivo */
-        .hero-video-box video {
-            width: 100%;
-            height: auto;
-            display: block;
-            position: relative;
-            z-index: 1;
-            opacity: 0.5; /* Deixei transparente só pro texto de marcação aparecer */
-        }
-
         /* BOTÃO CROMADO */
         .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
         
@@ -285,10 +269,6 @@
             transition: 0.3s;
         }
         .promo-video:hover { box-shadow: 0 0 30px rgba(0, 243, 255, 0.2); }
-        .promo-video::after {
-            content: "▶ PLAY PROPAGANDA";
-            font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-blue);
-        }
 
         /* FOOTER */
         footer {
@@ -560,6 +540,7 @@
     </script>
 </body>
 </html>
+
 
 
 
