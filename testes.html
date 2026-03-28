@@ -206,37 +206,59 @@
         </div>
     </div>
 
-    <script>
-        const checkJoined = document.getElementById('check-joined');
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
-        const downloadArea = document.getElementById('download-area');
-        const warning = document.getElementById('warning');
-        const timestamp = document.getElementById('timestamp');
+<script>
+    const checkJoined = document.getElementById('check-joined');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const downloadArea = document.getElementById('download-area');
+    const warning = document.getElementById('warning');
+    const timestamp = document.getElementById('timestamp');
 
-        // Atualiza relógio do terminal
+    // URLs de Sincronia (SUBSTITUA AQUI)
+    const URL_PLAYSTORE_APP = "https://play.google.com/store/apps/details?id=com.seu.pacote";
+    const URL_PLAYSTORE_WEB = "https://play.google.com/apps/testing/com.seu.pacote";
+
+    // Relógio do Terminal
+    setInterval(() => {
         timestamp.innerText = new Date().toLocaleTimeString();
+    }, 1000);
 
-        checkJoined.addEventListener('change', function() {
-            if(this.checked) {
-                // Ativa visualmente o Passo 2
-                step2.classList.add('active');
-                step1.style.opacity = "0.3";
+    // Função de Detecção de Dispositivo
+    function getStoreLink() {
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        // Se for Android, tenta abrir o app. Se for PC, abre o link de 'tester' da web.
+        return isAndroid ? URL_PLAYSTORE_APP : URL_PLAYSTORE_WEB;
+    }
+
+    checkJoined.addEventListener('change', function() {
+        if(this.checked) {
+            // Efeito visual de ativação
+            step2.classList.add('active');
+            step1.style.opacity = "0.3";
+            
+            // Simulação de Descriptografia Ixivia
+            let btnDown = downloadArea.querySelector('.btn-action');
+            btnDown.innerText = "Sincronizando...";
+            downloadArea.style.display = 'block';
+
+            setTimeout(() => {
+                btnDown.innerText = "BAIXAR NÚCLEO IXIVIA";
+                btnDown.href = getStoreLink();
+                warning.style.display = 'block';
                 
-                // Simula "processamento de dados" para dar seriedade
-                setTimeout(() => {
-                    downloadArea.style.display = 'block';
-                    warning.style.display = 'block';
-                }, 800);
-            } else {
-                step2.classList.remove('active');
-                downloadArea.style.display = 'none';
-                warning.style.display = 'none';
-                step1.style.opacity = "1";
-            }
-        });
+                // Log de Terminal no console para você debugar
+                console.log("Protocolo de Redirecionamento Ativado para: " + (navigator.userAgent));
+            }, 1200);
+        } else {
+            step2.classList.remove('active');
+            downloadArea.style.display = 'none';
+            warning.style.display = 'none';
+            step1.style.opacity = "1";
+        }
+    });
 
-        // Efeito de som ou feedback visual pode ser adicionado aqui
-    </script>
+    // Animação de digitação para os parágrafos (Opcional para dar estilo)
+    console.log("Ixivia OS carregado. Aguardando interação humana...");
+</script>
 </body>
 </html>
