@@ -19,7 +19,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Rajdhani', sans-serif;
-            -webkit-tap-highlight-color: transparent; /* Remove o flash azul ao clicar no mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -28,33 +28,33 @@
             line-height: 1.5;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Alinha no topo para vídeos longos */
             min-height: 100vh;
-            padding: 15px; /* Respiro nas bordas no mobile */
+            padding: 15px;
         }
 
-        /* Container Principal Adaptado para Mobile */
         .main-container {
             width: 100%;
-            max-width: 500px; /* Largura ideal para leitura no celular */
+            max-width: 450px; /* Levemente menor para destacar o vídeo */
             background: var(--deep-grey);
             border: 1px solid rgba(0, 243, 255, 0.2);
             border-radius: 12px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        /* Cabeçalho Simples */
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #fff;
             letter-spacing: 2px;
         }
@@ -62,14 +62,12 @@
         .header p {
             color: var(--neon-blue);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
         }
 
-        /* Estilização dos Passos */
         .step {
-            margin-bottom: 30px;
-            position: relative;
+            margin-bottom: 25px;
         }
 
         .step-header {
@@ -83,46 +81,51 @@
             background: var(--neon-blue);
             color: #000;
             font-family: 'Orbitron', sans-serif;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
         }
 
         .step h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #fff;
         }
 
         .step p {
             color: var(--grey-text);
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin-bottom: 15px;
         }
 
-        /* Container do Vídeo Tutorial */
+        /* =========================================
+           CORREÇÃO DO VÍDEO VERTICAL (720x1600)
+           ========================================= */
         .video-tutorial-container {
             width: 100%;
-            border-radius: 8px;
+            max-width: 280px; /* Limita a largura para não ficar gigante no PC */
+            margin: 0 auto 20px auto; /* Centraliza horizontalmente */
+            border-radius: 15px; /* Bordas arredondadas estilo celular */
             overflow: hidden;
-            border: 2px solid #222;
-            margin-bottom: 15px;
+            border: 4px solid #222; /* Moldura simulando o aparelho */
             background: #000;
-            aspect-ratio: 16 / 9; /* Mantém a proporção do vídeo */
+            
+            /* Define a proporção vertical exata (1600 / 720 = 2.22) */
+            aspect-ratio: 720 / 1600; 
+            
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
         }
 
         .video-tutorial-container video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Garante que preencha o contêiner */
         }
 
-        /* Botão Principal Estilizado (Sem cortes complexos para facilitar clique) */
         .btn-direct {
             display: block;
             width: 100%;
@@ -131,20 +134,18 @@
             color: #000;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
             border-radius: 8px;
-            transition: background 0.2s;
             border: none;
             cursor: pointer;
         }
 
         .btn-direct:active {
-            transform: scale(0.98); /* Feedback de clique no mobile */
+            transform: scale(0.98);
             background: #00c8d1;
         }
 
-        /* Checkbox de Confirmação */
         .checkbox-container {
             margin-top: 15px;
             display: flex;
@@ -153,23 +154,19 @@
             background: rgba(255,255,255,0.03);
             padding: 12px;
             border-radius: 8px;
-            cursor: pointer;
         }
 
         .checkbox-container input {
             width: 20px;
             height: 20px;
-            accent-color: var(--neon-blue); /* Cor do check no mobile moderno */
+            accent-color: var(--neon-blue);
         }
 
         .checkbox-container label {
-            color: #fff;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.85rem;
             flex: 1;
         }
 
-        /* Área de Download (Escondida inicialmente) */
         #download-area {
             display: none;
             margin-top: 20px;
@@ -178,30 +175,22 @@
             text-align: center;
         }
 
-        #download-area p {
-            color: #fff;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        /* Alerta de Erro Simplificado */
         .error-box {
             background: rgba(255, 60, 60, 0.1);
             border: 1px solid var(--warning-red);
             padding: 12px;
             border-radius: 6px;
             color: #ff9999;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-top: 15px;
             text-align: left;
         }
 
-        /* Rodapé */
         .footer {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
             color: #444;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
     </style>
@@ -219,7 +208,7 @@
                 <div class="step-number">1</div>
                 <h2>Entrar no Grupo de Testadores</h2>
             </div>
-            <p>Para o Google liberar o download do app, você precisa fazer parte do nosso grupo de testes. É rápido e obrigatório.</p>
+            <p>Assista ao tutorial abaixo para saber exatamente onde clicar. É obrigatório fazer parte do grupo para liberar o download.</p>
             
             <div class="video-tutorial-container">
                 <video autoplay loop muted playsinline>
@@ -230,9 +219,9 @@
 
             <a href="https://groups.google.com/g/IXIVIA-TESTE/about" target="_blank" class="btn-direct">1. Solicitar Acesso ao Grupo</a>
             
-            <div class="checkbox-container" id="check-action">
+            <div class="checkbox-container">
                 <input type="checkbox" id="check-joined">
-                <label for="check-joined">Já cliquei em "Participar do grupo" e confirmei minha entrada.</label>
+                <label for="check-joined">Já assisti e confirmei minha entrada no grupo.</label>
             </div>
         </div>
 
@@ -241,12 +230,12 @@
                 <div class="step-number">2</div>
                 <h2>Baixar o Aplicativo</h2>
             </div>
-            <p>Agora que você está no grupo, o link abaixo abrirá a Play Store com a versão de testes liberada.</p>
+            <p>Link liberado. Clique abaixo para abrir a Play Store e instalar a versão de testes.</p>
             
-            <a href="#" class="btn-direct" id="btn-app" style="background: #fff; color: #000;">2. Baixar Ixivia na Play Store</a>
+            <a href="https://play.google.com/store/apps/details?id=br.com.ixivia.app" class="btn-direct" style="background: #fff; color: #000;">2. Baixar Ixivia na Play Store</a>
             
             <div class="error-box">
-                <strong>Importante:</strong> Se a Play Store disser "App não disponível", aguarde 1 minuto e tente novamente. Certifique-se de estar usando a mesma conta Google que usou para entrar no grupo.
+                <strong>Atenção:</strong> Se aparecer "App não disponível", aguarde 1 minuto. Verifique se está usando a mesma conta Google que entrou no grupo.
             </div>
         </div>
 
@@ -258,20 +247,10 @@
     <script>
         const checkJoined = document.getElementById('check-joined');
         const downloadArea = document.getElementById('download-area');
-        const btnApp = document.getElementById('btn-app');
 
-        // URLs de Sincronia (SUBSTITUA AQUI PELO SEU LINK DO APP)
-        // Use o link que termina em 'testing' para garantir o aceite
-        const URL_PLAYSTORE_TESTING = "https://play.google.com/store/apps/details?id=br.com.ixivia.app";
-
-        // Configura o link do app no botão
-        btnApp.href = URL_PLAYSTORE_TESTING;
-
-        // Lógica de liberação do Passo 2
         checkJoined.addEventListener('change', function() {
             if(this.checked) {
                 downloadArea.style.display = 'block';
-                // Rola a tela suavemente para baixo para mostrar o download no mobile
                 setTimeout(() => {
                     downloadArea.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
