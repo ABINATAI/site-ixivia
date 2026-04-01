@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ixivia | Extensão Humana via IA</title>
+    <title>Ixivia | Soluções do Mundo Real via App</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,48 +17,21 @@
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Rajdhani', sans-serif;
-            cursor: crosshair; /* Cursor cibernético */
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif; cursor: crosshair;
         }
 
-        body {
-            background-color: var(--black);
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-        }
+        body { background-color: var(--black); color: #fff; overflow-x: hidden; position: relative; }
 
-        /* Efeito de Malha (Grid) de Fundo */
+        /* Grid de Fundo */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -2;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px; z-index: -2;
         }
 
-        /* =========================================
-           BORDAS ELÉTRICAS DINÂMICAS 
-           ========================================= */
-        .screen-border {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none;
-            z-index: 9999;
-            border: 1px solid rgba(0, 243, 255, 0.1);
-        }
-        .scanner-line {
-            position: absolute;
-            background: var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            opacity: 0.7;
-        }
+        .screen-border { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; border: 1px solid rgba(0, 243, 255, 0.1); }
+        .scanner-line { position: absolute; background: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); opacity: 0.7; }
         .scanner-top { top: 0; left: -100%; width: 50%; height: 2px; animation: scanH 4s linear infinite; }
         .scanner-bottom { bottom: 0; right: -100%; width: 50%; height: 2px; animation: scanH 4s linear infinite reverse; }
         .scanner-left { top: -100%; left: 0; width: 2px; height: 50%; animation: scanV 5s linear infinite; }
@@ -67,246 +40,62 @@
         @keyframes scanH { 100% { left: 200%; } }
         @keyframes scanV { 100% { top: 200%; } }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* HEADER */
-        header {
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; background: var(--chrome); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(255,255,255,0.2)); letter-spacing: 2px; }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: var(--chrome);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
-            letter-spacing: 2px;
-        }
+        /* HERO */
+        .hero { display: flex; flex-wrap: wrap; align-items: center; min-height: 85vh; padding: 50px 0; gap: 40px; }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 20px; background: var(--chrome); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .hero p { font-size: 1.3rem; color: #aaa; margin-bottom: 30px; line-height: 1.6; }
+        .hero-video-box { flex: 1; min-width: 300px; border-radius: 10px; overflow: hidden; background: #000; box-shadow: 0 0 30px rgba(0, 243, 255, 0.1); }
 
-        nav a {
-            color: #ccc;
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        nav a:hover { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue-glow); }
-
-        /* HERO SECTION */
-        .hero {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            min-height: 85vh;
-            padding: 50px 0;
-            gap: 40px;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: var(--chrome);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #aaa;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .hero-video-box {
-            flex: 1;
-            min-width: 300px;
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
-            position: relative;
-            background: #000;
-        }
-
-        /* BOTÃO CROMADO */
+        /* BOTÕES */
         .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
-        
         .btn-chrome {
-            padding: 15px 35px;
-            background: var(--chrome);
-            color: #000;
-            text-decoration: none;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            border: none;
-            position: relative;
-            transition: all 0.3s;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* Corte futurista */
+            padding: 15px 35px; background: var(--chrome); color: #000; text-decoration: none; font-weight: 900;
+            text-transform: uppercase; font-family: 'Orbitron', sans-serif; transition: all 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        .btn-chrome:hover { background: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); transform: scale(1.05); }
+        
+        .btn-disabled {
+            background: transparent !important; border: 1px solid #444 !important; color: #555 !important;
+            cursor: not-allowed !important; pointer-events: auto !important;
         }
 
-        .btn-chrome:hover {
-            background: var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
-            transform: scale(1.05);
+        /* MODAL DE RECRUTAMENTO */
+        .modal-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; z-index: 10001;
         }
-
-        /* SEÇÃO: CAPACIDADE E UTILIDADE */
-        .features {
-            padding: 80px 0;
-            background: linear-gradient(180deg, var(--black) 0%, var(--deep-grey) 100%);
+        .modal-content {
+            background: #111; border: 1px solid var(--neon-blue); padding: 40px;
+            max-width: 500px; width: 90%; border-radius: 10px; text-align: center;
+            box-shadow: 0 0 30px var(--neon-blue-glow);
         }
+        .modal-content h2 { font-family: 'Orbitron'; color: var(--neon-blue); margin-bottom: 15px; }
+        .modal-content p { margin-bottom: 25px; color: #ccc; font-size: 1.1rem; }
 
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--neon-blue);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
+        /* SEÇÃO FEATURES E LAUNDRY */
+        .features { padding: 80px 0; background: linear-gradient(180deg, var(--black) 0%, var(--deep-grey) 100%); }
+        .section-title { font-family: 'Orbitron'; font-size: 2rem; color: var(--neon-blue); margin-bottom: 20px; text-transform: uppercase; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255,255,255,0.1); padding: 30px; transition: 0.3s; border-left: 3px solid transparent; }
+        .card:hover { border-left: 3px solid var(--neon-blue); background: rgba(0, 243, 255, 0.02); }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+        .laundry-section { padding: 100px 0; background: radial-gradient(circle at right, rgba(0, 243, 255, 0.05), var(--black) 50%); }
+        .laundry-content { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
+        .laundry-ui { flex: 1; background: var(--chrome-dark); padding: 30px; border-radius: 10px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+        .ui-line { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; color: #ccc; }
 
-        .card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
-            position: relative;
-            transition: 0.3s;
-            border-left: 3px solid transparent;
-        }
-
-        .card:hover {
-            border-left: 3px solid var(--neon-blue);
-            background: rgba(0, 243, 255, 0.02);
-            transform: translateX(10px);
-        }
-
-        .card h3 { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 15px; color: #fff; }
-        .card p { color: #aaa; font-size: 1rem; line-height: 1.5; }
-
-        /* SEÇÃO: PROTOCOLO DE LAVANDERIA */
-        .laundry-section {
-            padding: 100px 0;
-            border-top: 1px solid rgba(0, 243, 255, 0.1);
-            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
-            background: radial-gradient(circle at right, rgba(0, 243, 255, 0.05), var(--black) 50%);
-        }
-
-        .laundry-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .laundry-text { flex: 1; min-width: 300px; }
-        .laundry-ui {
-            flex: 1;
-            min-width: 300px;
-            background: var(--chrome-dark);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        .ui-line {
-            display: flex; justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 0; color: #ccc;
-        }
-
-        /* SEÇÃO: EXTENSÃO HUMANA (VISÃO PRO) */
-        .human-extension {
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .human-extension h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 30px;
-            background: var(--chrome);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* VÍDEO PROPAGANDA */
-        .promo-video {
-            margin: 60px auto 0;
-            max-width: 800px;
-            aspect-ratio: 16/9;
-            background: #111;
-            border: 1px solid var(--neon-blue);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            transition: 0.3s;
-        }
-        .promo-video:hover { box-shadow: 0 0 30px rgba(0, 243, 255, 0.2); }
-
-        /* FOOTER */
-        footer {
-            padding: 50px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            background: var(--deep-grey);
-        }
-
-        footer .links { margin: 20px 0; }
-        footer a { color: #777; text-decoration: none; margin: 0 15px; font-weight: bold; transition: 0.3s; }
-        footer a:hover { color: var(--neon-blue); }
-        .copyright { color: #444; font-size: 0.9rem; }
-
-        /* ==========================================
-           ANIMAÇÃO DE PERÍMETRO (SVG)
-           ========================================== */
-        .svg-tracer {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .svg-tracer rect {
-            fill: none;
-            stroke: var(--neon-blue);
-            stroke-width: 4;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: dashTrace 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            filter: drop-shadow(0 0 8px var(--neon-blue));
-        }
-        @keyframes dashTrace {
-            to { stroke-dashoffset: 0; }
-        }
-
+        footer { padding: 50px 20px; text-align: center; background: var(--deep-grey); border-top: 1px solid rgba(255,255,255,0.1); }
+        .svg-tracer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        .svg-tracer rect { fill: none; stroke: var(--neon-blue); stroke-width: 4; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dashTrace 1s forwards; }
+        @keyframes dashTrace { to { stroke-dashoffset: 0; } }
     </style>
 </head>
 <body>
@@ -318,233 +107,138 @@
         <div class="scanner-line scanner-right"></div>
     </div>
 
+    <div class="modal-overlay" id="recruitModal">
+        <div class="modal-content">
+            <h2>Acesso Antecipado</h2>
+            <p>O Ixivia está em fase de lançamento controlado. Para baixar agora, você precisa entrar no nosso grupo oficial de testadores.</p>
+            <a href="testes.html" class="btn-chrome">Iniciar Instruções</a>
+            <button onclick="closeModal()" style="background:transparent; border:none; color:#555; margin-top:20px; cursor:pointer; display:block; width:100%;">Voltar ao site</button>
+        </div>
+    </div>
+
     <div id="tracer-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10000; overflow: hidden;"></div>
 
-    <div class="container"><header>
-            <div class="logo cyber-interact" style="display: flex; align-items: center; gap: 15px;">
-                <img src="icon.png" alt="Ícone Ixivia" style="height: 150px; width: auto; border-radius: 50%; box-shadow: 0 0 15px rgba(0,243,255,0.4);">
+    <div class="container">
+        <header>
+            <div class="logo cyber-interact">
+                <img src="icon.png" alt="Ícone Ixivia" style="height: 60px; width: auto; border-radius: 50%; vertical-align: middle; margin-right: 10px;">
                 IXIVIA
             </div>
-            <nav>
-                <div class="cyber-interact" style="cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 10px;" onclick="alert('Menu em construção!')">
-                    <div style="width: 35px; height: 3px; background: var(--neon-blue); box-shadow: 0 0 8px var(--neon-blue);"></div>
-                    <div style="width: 35px; height: 3px; background: var(--neon-blue); box-shadow: 0 0 8px var(--neon-blue);"></div>
-                    <div style="width: 20px; height: 3px; background: var(--neon-blue); box-shadow: 0 0 8px var(--neon-blue); align-self: flex-end;"></div>
-                </div>
-            </nav>
         </header>
 
         <section class="hero">
             <div class="hero-text">
-                <h1>Sincronia entre IA e Ação Física</h1>
-                <p>O aplicativo que mapeia necessidades no mundo real. De encanadores a diaristas, encontre profissionais verificados, negocie diretamente e execute tarefas com precisão algorítmica. Sem taxas abusivas.</p>
+                <h1>Conectando Necessidades ao Mundo Real</h1>
+                <p>O aplicativo que mapeia serviços essenciais perto de você. Encontre profissionais qualificados, negocie diretamente e resolva tarefas do dia a dia com agilidade e segurança.</p>
                 <div class="btn-group">
-                    <a href="#" class="btn-chrome cyber-interact">Baixar Android</a>
-                    <a href="#" class="btn-chrome cyber-interact" style="background: transparent; border: 2px solid #ccc; color: #fff;">Baixar iOS</a>
+                    <a href="javascript:void(0)" onclick="openModal()" class="btn-chrome cyber-interact" id="btn-android">Baixar Android</a>
+                    
+                    <a href="javascript:void(0)" onclick="alert('Versão iOS em desenvolvimento. Disponível em breve!')" class="btn-chrome cyber-interact btn-disabled" id="btn-ios">Baixar iOS</a>
                 </div>
             </div>
-            <div class="hero-video-box cyber-interact" style="border: none; background: transparent; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
-                <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+            <div class="hero-video-box">
+                <video autoplay muted loop playsinline style="width: 100%;">
                     <source src="video-topo.mp4" type="video/mp4">
-                    Seu navegador não suporta vídeos.
                 </video>
             </div>
         </section>
 
         <section class="features">
-            <h2 class="section-title">Parâmetros Operacionais</h2>
+            <h2 class="section-title">Como funciona</h2>
             <div class="grid-3">
                 <div class="card cyber-interact">
-                    <h3 style="color: var(--neon-blue);">01. Rastrear</h3>
-                    <p>O radar Ixivia filtra agentes e profissionais em sua área baseando-se em métricas de capacidade e disponibilidade em tempo real.</p>
+                    <h3 style="color: var(--neon-blue);">1. Localizar</h3>
+                    <p>O radar Ixivia mostra profissionais disponíveis na sua região em tempo real.</p>
                 </div>
                 <div class="card cyber-interact">
-                    <h3 style="color: var(--neon-blue);">02. Negociar</h3>
-                    <p>Estabeleça os termos diretamente. O sistema envia sua oferta inicial e especificações técnicas antes mesmo do canal de comunicação ser aberto.</p>
+                    <h3 style="color: var(--neon-blue);">2. Combinar</h3>
+                    <p>Fale diretamente com quem vai realizar o serviço e acerte os detalhes sem intermediários.</p>
                 </div>
                 <div class="card cyber-interact">
-                    <h3 style="color: var(--neon-blue);">03. Validar</h3>
-                    <p>Serviço concluído. A classificação alimenta a Central de Confiança, aprimorando o ecossistema e premiando a eficiência.</p>
+                    <h3 style="color: var(--neon-blue);">3. Finalizar</h3>
+                    <p>Tudo pronto. Avalie o serviço para manter a comunidade segura e eficiente.</p>
                 </div>
             </div>
         </section>
 
-<section class="laundry-section" id="laundry">
+        <section class="laundry-section">
             <div class="laundry-content">
                 <div class="laundry-text">
-                    <h2 class="section-title">Missões de Lavanderia</h2>
-                    <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 20px;">
-                        Lavar roupas toma tempo, e muitas pessoas preferem pagar para você fazer isso. O Ixivia transforma esse serviço em missões rápidas direto no seu celular.
-                    </p>
-                    <p style="color: #999; margin-bottom: 20px;">
-                        O cliente diz exatamente o que precisa: a quantidade de peças, o tipo de roupa, e se você precisa buscar, entregar ou apenas passar. Tudo fica claro antes mesmo de você sair de casa.
-                    </p>
-                    <p style="color: #999;">
-                        Junto com o pedido, já vem o valor oferecido. Você olha na tela, vê as exigências e decide se aceita o dinheiro antes mesmo de falar com o cliente. Trabalho honesto com tecnologia de ponta.
-                    </p>
+                    <h2 class="section-title">Serviços de Lavanderia</h2>
+                    <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 20px;">Ganhe tempo delegando tarefas domésticas ou gere renda extra atendendo chamados na sua vizinhança.</p>
+                    <p style="color: #999;">O cliente define a quantidade, o tipo de roupa e o prazo. Você visualiza o chamado e decide aceitar. Simples assim.</p>
                 </div>
-                <div class="laundry-ui cyber-interact">
-                    <h3 style="font-family: 'Orbitron'; margin-bottom: 20px; color: var(--neon-blue);">Exemplo de Chamado</h3>
-                    <div class="ui-line"><span>Cliente:</span> <span style="color: #fff;">Maria S. (A 2km)</span></div>
-                    <div class="ui-line"><span>Quantidade:</span> <span style="color: #fff;">35 peças</span></div>
-                    <div class="ui-line"><span>Tipos de Roupa:</span> <span style="color: #fff;">Dia a dia, 2 Camisas</span></div>
-                    <div class="ui-line"><span>Extras:</span> <span style="color: #fff;">Passar + Buscar em casa</span></div>
-                    <div class="ui-line" style="border: none; margin-top: 15px;">
-                        <span style="font-weight: bold; color: var(--neon-blue);">VALOR OFERECIDO:</span> 
-                        <span style="color: #0f0; font-family: 'Orbitron'; font-size: 1.2rem;">R$ 80,00</span>
-                    </div>
+                <div class="laundry-ui">
+                    <h3 style="font-family: 'Orbitron'; margin-bottom: 20px; color: var(--neon-blue);">Exemplo de Pedido</h3>
+                    <div class="ui-line"><span>Distância:</span> <span style="color: #fff;">2.5 km</span></div>
+                    <div class="ui-line"><span>Volume:</span> <span style="color: #fff;">30 peças</span></div>
+                    <div class="ui-line"><span>Valor Sugerido:</span> <span style="color: #0f0;">R$ 75,00</span></div>
                 </div>
             </div>
         </section>
 
-        <section class="human-extension" id="pro">
-            <h2>Extensão Humana no Mundo Real</h2>
-            <p style="font-size: 1.3rem; color: #ccc; max-width: 800px; margin: 0 auto;">
-                Agentes de Inteligência Artificial processam dados na velocidade da luz, mas não possuem mãos. <strong style="color: var(--neon-blue);">Eles alugam as suas.</strong>
-            </p>
-            <p style="font-size: 1.1rem; color: #888; max-width: 800px; margin: 20px auto 0;">
-                O Ixivia é a ponte entre a mente digital e o esforço físico. Nossa tecnologia, aliada à estratégia de cessão de maquinário, garante um fluxo constante de missões para quem quer trabalhar. Seja um Nodo Humano ativo, complete as tarefas e rentabilize sua habilidade.
-            </p>
-
-<div class="promo-video cyber-interact" style="background: transparent; border: none;">
-                <video controls style="width: 100%; height: 100%; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);">
-                    <source src="video-promo.mp4" type="video/mp4">
-                    Seu navegador não suporta vídeos.
-                </video>
-            </div>
-        </section>
-
-        <footer id="footer">
-            <div class="logo cyber-interact" style="font-size: 1.5rem;">IXIVIA</div>
-            <div class="links">
-                <a href="#" class="cyber-interact">Trabalhe Conosco</a>
-                <a href="#" class="cyber-interact">Contato (Suporte)</a>
-                <a href="legal.html#termos" class="cyber-interact">Termos de Uso</a>
-                <a href="legal.html#privacidade" class="cyber-interact">Política de Privacidade</a>
-		<img src="icon.png" alt="Ícone Ixivia" style="height: 80px; width: auto; border-radius: 50%; box-shadow: 0 0 15px rgba(0,243,255,0.4);">
-                
-
-            </div>
-            <p class="copyright">&copy; 2026 Ixivia. Sincronia Sintética & Humana.</p>
+        <footer>
+            <div class="logo">IXIVIA</div>
+            <p class="copyright">&copy; 2026 Ixivia. Conectando pessoas e soluções.</p>
         </footer>
     </div>
 
-<script>
-        const container = document.getElementById('tracer-container');
-        // Ponto de partida inicial (centro da tela)
-        let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    <script>
+        // Funções do Modal
+        function openModal() { document.getElementById('recruitModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('recruitModal').style.display = 'none'; }
 
+        // Script original do rastro elétrico (Tracer) adaptado
+        const traceCont = document.getElementById('tracer-container');
+        let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         const sleep = ms => new Promise(r => setTimeout(r, ms));
 
         function drawLine(x, y, length, isHorizontal, direction) {
             const line = document.createElement('div');
             line.style.position = 'absolute';
             line.style.background = '#00f3ff';
-            line.style.boxShadow = '0 0 10px #00f3ff, 0 0 20px #00f3ff';
+            line.style.boxShadow = '0 0 10px #00f3ff';
             line.style.zIndex = '9999';
             line.style.transition = 'width 0.3s linear, height 0.3s linear, opacity 0.5s ease';
-
             if (isHorizontal) {
-                line.style.height = '2px';
-                line.style.width = '0px';
-                line.style.top = y + 'px';
+                line.style.height = '2px'; line.style.width = '0px'; line.style.top = y + 'px';
                 line.style.left = direction > 0 ? x + 'px' : (x - length) + 'px';
-                line.style.transformOrigin = direction > 0 ? 'left' : 'right';
             } else {
-                line.style.width = '2px';
-                line.style.height = '0px';
-                line.style.left = x + 'px';
+                line.style.width = '2px'; line.style.height = '0px'; line.style.left = x + 'px';
                 line.style.top = direction > 0 ? y + 'px' : (y - length) + 'px';
-                line.style.transformOrigin = direction > 0 ? 'top' : 'bottom';
             }
-
-            container.appendChild(line);
-
-            // Animação de crescimento
+            traceCont.appendChild(line);
             requestAnimationFrame(() => {
-                if (isHorizontal) line.style.width = length + 'px';
-                else line.style.height = length + 'px';
+                if (isHorizontal) line.style.width = length + 'px'; else line.style.height = length + 'px';
             });
-
-            // Apaga a linha depois de um tempo
-            setTimeout(() => {
-                line.style.opacity = '0';
-                setTimeout(() => line.remove(), 500);
-            }, 1000);
+            setTimeout(() => { line.style.opacity = '0'; setTimeout(() => line.remove(), 500); }, 1000);
         }
 
         document.addEventListener('click', async (e) => {
             const target = e.target.closest('.cyber-interact');
             if (!target) return;
-
-            // Pega as dimensões do botão clicado
             const rect = target.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+            const targetX = rect.left + window.scrollX + (rect.width / 2);
+            const targetY = rect.top + window.scrollY;
 
-            // Calcula o Ponto Mediano da aresta superior do botão
-            const targetX = rect.left + scrollX + (rect.width / 2);
-            const targetY = rect.top + scrollY;
-
-            // MOVIMENTO 1: Eixo X (Horizontal)
             const deltaX = targetX - pointer.x;
             if (Math.abs(deltaX) > 1) {
                 drawLine(pointer.x, pointer.y, Math.abs(deltaX), true, Math.sign(deltaX));
-                await sleep(300); // Espera a linha X terminar
+                await sleep(300);
             }
-
-            // MOVIMENTO 2: Eixo Y (Vertical)
             const deltaY = targetY - pointer.y;
             if (Math.abs(deltaY) > 1) {
                 drawLine(targetX, pointer.y, Math.abs(deltaY), false, Math.sign(deltaY));
-                await sleep(300); // Espera a linha Y terminar
+                await sleep(300);
             }
-
-            // MOVIMENTO 3: Contorno do Perímetro (SVG Injetado)
-            // Pega o arredondamento do botão para o SVG ficar perfeito
-            const style = window.getComputedStyle(target);
-            const br = parseInt(style.borderRadius) || 0;
-
-            // Cria o SVG sobre o elemento
-            target.style.position = 'relative'; // Garante que o SVG fique preso a ele
-            const svgNS = "http://www.w3.org/2000/svg";
-            const svg = document.createElementNS(svgNS, "svg");
-            svg.setAttribute("class", "svg-tracer");
-            
-            const rectSvg = document.createElementNS(svgNS, "rect");
-            rectSvg.setAttribute("width", "100%");
-            rectSvg.setAttribute("height", "100%");
-            rectSvg.setAttribute("rx", br);
-            rectSvg.setAttribute("ry", br);
-            
-            svg.appendChild(rectSvg);
-            target.appendChild(svg);
-
-            // Remove o contorno após a animação
-            setTimeout(() => {
-                svg.style.opacity = '0';
-                svg.style.transition = 'opacity 0.5s';
-                setTimeout(() => svg.remove(), 500);
-            }, 1200);
-
-// Atualiza o rastreador para o final do movimento
             pointer = { x: targetX, y: targetY };
 
-            // ATRASO ESTRATÉGICO PARA NAVEGAÇÃO
-            if (target.tagName.toLowerCase() === 'A' && target.href && !target.href.includes('#')) {
-                e.preventDefault(); // Impede de sair da página na hora
-                setTimeout(() => {
-                    window.location.href = target.href; // Muda de página após a animação
-                }, 800); // 800ms é o tempo exato do raio + contorno
+            // Se for link real (não o botão de android que abre modal), navega após animação
+            if (target.tagName === 'A' && target.href && !target.href.includes('javascript') && !target.href.includes('#')) {
+                e.preventDefault();
+                setTimeout(() => { window.location.href = target.href; }, 800);
             }
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
