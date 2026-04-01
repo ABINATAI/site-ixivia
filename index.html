@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ixivia | Extensão Humana via IA</title>
@@ -148,7 +148,7 @@
             background: #000;
         }
 
-        /* BOTÃO CROMADO */
+        /* BOTÃO CROMADO & BOTÕES DESATIVADOS */
         .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
         
         .btn-chrome {
@@ -169,6 +169,23 @@
             background: var(--neon-blue);
             box-shadow: 0 0 20px var(--neon-blue);
             transform: scale(1.05);
+        }
+
+        /* ESTILO DO BOTÃO BLOQUEADO (iOS) */
+        .btn-disabled {
+            background: transparent !important;
+            border: 2px dashed #555 !important;
+            color: #555 !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+        }
+
+        .btn-disabled:hover {
+            background: rgba(255, 60, 60, 0.05) !important;
+            border-color: #ff3c3c !important;
+            color: #ff3c3c !important;
+            box-shadow: 0 0 15px rgba(255, 60, 60, 0.2) !important;
+            transform: scale(1) !important;
         }
 
         /* SEÇÃO: CAPACIDADE E UTILIDADE */
@@ -339,8 +356,9 @@
                 <h1>Sincronia entre IA e Ação Física</h1>
                 <p>O aplicativo que mapeia necessidades no mundo real. De encanadores a diaristas, encontre profissionais verificados, negocie diretamente e execute tarefas com precisão algorítmica. Sem taxas abusivas.</p>
                 <div class="btn-group">
-                    <a href="#" class="btn-chrome cyber-interact">Baixar Android</a>
-                    <a href="#" class="btn-chrome cyber-interact" style="background: transparent; border: 2px solid #ccc; color: #fff;">Baixar iOS</a>
+                    <a href="acesso-teste.html" class="btn-chrome cyber-interact">Baixar Android</a>
+                    
+                    <a href="#" class="btn-chrome btn-disabled cyber-interact" onclick="alert('Acesso iOS bloqueado: O ecossistema para Apple ainda está em fase de calibração laboratorial. Em breve liberaremos o recrutamento para iPhone.'); return false;">iOS (Em Breve)</a>
                 </div>
             </div>
             <div class="hero-video-box cyber-interact" style="border: none; background: transparent; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
@@ -421,7 +439,7 @@
                 <a href="#" class="cyber-interact">Contato (Suporte)</a>
                 <a href="legal.html#termos" class="cyber-interact">Termos de Uso</a>
                 <a href="legal.html#privacidade" class="cyber-interact">Política de Privacidade</a>
-		<img src="icon.png" alt="Ícone Ixivia" style="height: 80px; width: auto; border-radius: 50%; box-shadow: 0 0 15px rgba(0,243,255,0.4);">
+        <img src="icon.png" alt="Ícone Ixivia" style="height: 80px; width: auto; border-radius: 50%; box-shadow: 0 0 15px rgba(0,243,255,0.4);">
                 
 
             </div>
