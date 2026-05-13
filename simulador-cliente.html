@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Pedido | Ixivia</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos do Simulador */
+        /* Fundo fora do celular */
         body {
-            background-color: #e5e7eb; /* Cor de fundo imitando um mapa cinza claro */
-            overflow: hidden; /* Evita rolagem, fica parecendo um app */
+            background-color: #d1d5db; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* O "Falso Mapa" */
+        /* A carcaça do celular com o mapa no fundo */
         .mapa-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
-            background-size: 20px 20px;
+            width: 100%;
+            max-width: 400px; /* Largura padrão de celular */
+            height: 800px; /* Altura de celular */
+            max-height: 95vh; /* Evita cortar em telas menores */
+            
+            /* Imagem de mapa real do Unsplash */
+            background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');
+            background-size: cover;
+            background-position: center;
+            
+            /* Borda grossa imitando a tela do aparelho */
+            border-radius: 35px;
+            border: 12px solid #1f2937;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden; /* Esconde tudo que sair da "tela" */
         }
 
         /* Cabeçalho Flutuante do Mapa */
@@ -27,25 +44,24 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--branco);
+            background: var(--branco, #ffffff);
             padding: 15px 25px;
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 10;
             text-align: center;
-            width: 90%;
-            max-width: 400px;
+            width: 85%;
         }
 
-        .map-header h2 { font-size: 1.2rem; color: var(--azul-principal); }
-        .map-header p { font-size: 0.9rem; color: var(--texto-cinza); }
+        .map-header h2 { font-size: 1.1rem; color: var(--azul-principal, #2563eb); margin-bottom: 2px; }
+        .map-header p { font-size: 0.85rem; color: var(--texto-cinza, #6b7280); }
 
         /* Pinos (Vizinhos) no Mapa */
         .pin {
             position: absolute;
             width: 40px;
             height: 40px;
-            background: var(--azul-principal);
+            background: var(--azul-principal, #2563eb);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -64,7 +80,7 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 2px solid var(--azul-principal);
+            border: 2px solid var(--azul-principal, #2563eb);
             animation: onda 2s infinite;
         }
 
@@ -80,25 +96,26 @@
         }
 
         /* Posições fixas para os pinos testes */
-        .pin-1 { top: 30%; left: 30%; }
+        .pin-1 { top: 35%; left: 30%; }
         .pin-2 { top: 60%; left: 70%; animation-delay: 0.5s; }
         .pin-3 { top: 75%; left: 40%; animation-delay: 1s; }
 
-        /* Card de Negociação (O Modal) */
+        /* Card de Negociação (O Modal preso DENTRO do celular) */
         .modal-negociacao {
-            position: fixed;
+            position: absolute;
             bottom: -100%; /* Começa escondido embaixo */
             left: 0;
             width: 100%;
-            background: var(--branco);
+            background: var(--branco, #ffffff);
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
             padding: 30px 20px;
             transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 100;
-            max-height: 85vh;
+            max-height: 85%;
             overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .modal-negociacao.ativo { bottom: 0; }
@@ -110,7 +127,7 @@
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: var(--texto-cinza);
+            color: var(--texto-cinza, #6b7280);
             cursor: pointer;
         }
 
@@ -145,6 +162,7 @@
             border-radius: 10px;
             font-size: 1rem;
             background: #f9fafb;
+            box-sizing: border-box;
         }
 
         .checkbox-group {
@@ -164,13 +182,13 @@
             background: #eff6ff;
             padding: 15px;
             border-radius: 10px;
-            border: 2px solid var(--azul-principal);
+            border: 2px solid var(--azul-principal, #2563eb);
             margin-top: 20px;
         }
 
         .proposta-destaque input {
             font-size: 1.5rem;
-            color: var(--verde-escuro);
+            color: var(--verde-escuro, #059669);
             font-weight: bold;
             text-align: center;
         }
@@ -187,21 +205,30 @@
 
         .lojas-botoes {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            justify-content: center;
             margin-top: 20px;
         }
         
         .btn-loja {
-            background: var(--texto-escuro);
+            background: var(--texto-escuro, #1f2937);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            display: block;
+            text-align: center;
         }
 
+        .btn-disabled {
+            background: #d1d5db !important;
+            color: #6b7280 !important;
+            cursor: not-allowed;
+            pointer-events: none;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body>
@@ -218,84 +245,82 @@
         <div class="pin pin-2" onclick="abrirModal('Carlos', '800m')">🧺</div>
         <div class="pin pin-3" onclick="abrirModal('Dona Marta', '2.5km')">🧺</div>
 
-    </div>
-
-    <!-- Modal de Negociação -->
-    <div class="modal-negociacao" id="modal">
-        <button class="fechar-modal" onclick="fecharModal()">×</button>
-        
-        <div class="vizinho-info">
-            <div class="vizinho-foto">👤</div>
-            <div>
-                <h3 id="nome-vizinho">Nome</h3>
-                <p style="color: var(--verde-escuro); font-size: 0.9rem; font-weight: bold;">Verificado • A <span id="distancia-vizinho">Xkm</span></p>
-            </div>
-        </div>
-
-        <!-- O Formulário de Ilusão -->
-        <div id="form-pedido" class="form-pedido">
-            <div class="form-group">
-                <label>Quantas peças de roupa?</label>
-                <select>
-                    <option>Cesto Pequeno (Até 15 peças)</option>
-                    <option>Cesto Médio (Até 30 peças)</option>
-                    <option>Cesto Grande (Mais de 30 peças)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Tipos de Tecido (Pode escolher vários)</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" checked> Dia a dia (Algodão, malha)</label>
-                    <label class="checkbox-label"><input type="checkbox"> Delicados (Seda, lã)</label>
-                    <label class="checkbox-label"><input type="checkbox"> Cama e Banho</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>O que você precisa?</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" checked> Lavar</label>
-                    <label class="checkbox-label"><input type="checkbox"> Passar</label>
-                    <label class="checkbox-label"><input type="checkbox" checked> Buscar e Entregar na minha casa</label>
-                </div>
-            </div>
-
-            <div class="proposta-destaque">
-                <label style="text-align: center; color: var(--azul-principal);">Sua Proposta (Você decide o preço):</label>
-                <div style="position: relative;">
-                    <span style="position: absolute; left: 15px; top: 15px; font-size: 1.2rem; color: #666; font-weight: bold;">R$</span>
-                    <input type="number" id="valor-proposta" placeholder="Ex: 40,00" style="padding-left: 50px;">
-                </div>
-            </div>
-
-            <button class="btn-main" style="width: 100%; margin-top: 20px;" onclick="enviarProposta()">Enviar Proposta</button>
-        </div>
-
-        <!-- A Tela do "Bote" (Call to Action) -->
-        <div id="tela-sucesso" class="tela-sucesso">
-            <div style="font-size: 4rem; margin-bottom: 10px;">🎯</div>
-            <h2 style="color: var(--azul-principal); margin-bottom: 10px;">Proposta Pronta!</h2>
-            <p>Sua oferta de <strong id="valor-final" style="color: var(--verde-escuro); font-size: 1.2rem;">R$ 0,00</strong> para <strong id="nome-final">Nome</strong> está configurada.</p>
-            <p style="margin-top: 15px; color: var(--texto-cinza);">Para enviar o pedido oficial e garantir a segurança do pagamento, baixe o aplicativo grátis agora:</p>
+        <!-- Modal de Negociação -->
+        <div class="modal-negociacao" id="modal">
+            <button class="fechar-modal" onclick="fecharModal()">×</button>
             
-            <div class="lojas-botoes">
-                <a href="download.html" class="btn-loja">Baixar Android</a>
-                <a href="#" class="btn-loja btn-disabled">iOS (Em Breve)</a>
+            <div class="vizinho-info">
+                <div class="vizinho-foto">👤</div>
+                <div>
+                    <h3 id="nome-vizinho">Nome</h3>
+                    <p style="color: var(--verde-escuro, #059669); font-size: 0.9rem; font-weight: bold;">Verificado • A <span id="distancia-vizinho">Xkm</span></p>
+                </div>
             </div>
-            
-            <button class="btn-outline" style="width: 100%; margin-top: 20px;" onclick="location.href='index.html'">Voltar ao site</button>
+
+            <!-- O Formulário de Ilusão -->
+            <div id="form-pedido" class="form-pedido">
+                <div class="form-group">
+                    <label>Quantas peças de roupa?</label>
+                    <select>
+                        <option>Cesto Pequeno (Até 15 peças)</option>
+                        <option>Cesto Médio (Até 30 peças)</option>
+                        <option>Cesto Grande (Mais de 30 peças)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipos de Tecido</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="checkbox" checked> Dia a dia (Algodão, malha)</label>
+                        <label class="checkbox-label"><input type="checkbox"> Delicados (Seda, lã)</label>
+                        <label class="checkbox-label"><input type="checkbox"> Cama e Banho</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>O que você precisa?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="checkbox" checked> Lavar</label>
+                        <label class="checkbox-label"><input type="checkbox"> Passar</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Buscar e Entregar na minha casa</label>
+                    </div>
+                </div>
+
+                <div class="proposta-destaque">
+                    <label style="text-align: center; color: var(--azul-principal, #2563eb);">Sua Proposta (Você decide o preço):</label>
+                    <div style="position: relative;">
+                        <span style="position: absolute; left: 15px; top: 15px; font-size: 1.2rem; color: #666; font-weight: bold;">R$</span>
+                        <input type="number" id="valor-proposta" placeholder="Ex: 40,00" style="padding-left: 50px;">
+                    </div>
+                </div>
+
+                <button class="btn-main" style="width: 100%; margin-top: 20px; background: #2563eb; color: white; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;" onclick="enviarProposta()">Enviar Proposta</button>
+            </div>
+
+            <!-- A Tela do "Bote" (Call to Action) -->
+            <div id="tela-sucesso" class="tela-sucesso">
+                <div style="font-size: 4rem; margin-bottom: 10px;">🎯</div>
+                <h2 style="color: var(--azul-principal, #2563eb); margin-bottom: 10px;">Proposta Pronta!</h2>
+                <p>Sua oferta de <strong id="valor-final" style="color: var(--verde-escuro, #059669); font-size: 1.2rem;">R$ 0,00</strong> para <strong id="nome-final">Nome</strong> está configurada.</p>
+                <p style="margin-top: 15px; color: var(--texto-cinza, #6b7280);">Para enviar o pedido oficial e garantir a segurança, baixe o aplicativo:</p>
+                
+                <div class="lojas-botoes">
+                    <!-- Aponta para a nova página de recrutamento/download -->
+                    <a href="download.html" class="btn-loja" style="background: #10b981;">Baixar Android</a>
+                    <a href="#" class="btn-loja btn-disabled">iOS (Em Breve)</a>
+                </div>
+                
+                <button style="width: 100%; margin-top: 20px; padding: 12px; background: transparent; border: 2px solid #2563eb; color: #2563eb; border-radius: 10px; font-weight: bold; cursor: pointer;" onclick="location.href='index.html'">Voltar ao site</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Função para abrir o painel debaixo
         function abrirModal(nome, distancia) {
             document.getElementById('nome-vizinho').innerText = nome;
             document.getElementById('distancia-vizinho').innerText = distancia;
             document.getElementById('nome-final').innerText = nome;
             
-            // Reseta o modal para o estado de formulário caso tenha sido aberto antes
             document.getElementById('form-pedido').classList.remove('oculto');
             document.getElementById('tela-sucesso').classList.remove('ativo');
             document.getElementById('valor-proposta').value = '';
@@ -303,12 +328,10 @@
             document.getElementById('modal').classList.add('ativo');
         }
 
-        // Função para fechar o painel
         function fecharModal() {
             document.getElementById('modal').classList.remove('ativo');
         }
 
-        // Função mágica de enviar
         function enviarProposta() {
             const valorInput = document.getElementById('valor-proposta').value;
             
@@ -317,10 +340,8 @@
                 return;
             }
 
-            // Mostra o valor no CTA
             document.getElementById('valor-final').innerText = "R$ " + parseFloat(valorInput).toFixed(2).replace('.', ',');
             
-            // Esconde o formulário e mostra o botão de download
             document.getElementById('form-pedido').classList.add('oculto');
             document.getElementById('tela-sucesso').classList.add('ativo');
         }
