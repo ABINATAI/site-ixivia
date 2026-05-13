@@ -291,3 +291,26 @@ footer {
     padding: 30px;
     color: var(--texto-cinza);
 }
+
+/* =========================================
+   RESPONSIVIDADE (CELULARES E TABLETS)
+   ========================================= */
+@media (max-width: 768px) {
+    .header-flex { flex-direction: column; gap: 15px; }
+    
+    .hero { padding: 40px 0; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; }
+    
+    .grid-2 { grid-template-columns: 1fr; } /* Coloca os cards um em cima do outro */
+    
+    .card { padding: 25px 15px; }
+    .card .icon { font-size: 3rem; }
+    
+    .faq-container { flex-direction: column; text-align: center; gap: 30px; }
+    .mascote-img { max-width: 120px; }
+    .balao-fala { margin-top: 10px; border-radius: 20px; text-align: left; }
+    
+    .perguntas-area h2 { font-size: 1.8rem; }
+    .btn-faq { font-size: 0.95rem; padding: 12px 15px; }
+}
