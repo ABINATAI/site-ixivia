@@ -109,13 +109,13 @@
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            /* O SEGREDO: Uma margem extra embaixo garantindo que fique acima dos botões do celular */
-            padding: 30px 20px calc(10px + env(safe-area-inset-bottom)); 
+            /* FORÇA BRUTA: 100px de espaço no fundo para fugir de qualquer botão do celular */
+            padding: 30px 20px 100px 20px; 
             transition: bottom 0.4s ease-out;
             z-index: 100;
-            /* Usa a altura dinâmica real da tela, evitando cortes */
             max-height: 90dvh; 
             overflow-y: auto;
+            box-sizing: border-box;
         }
         .modal-negociacao.ativo { bottom: 0; }
 
