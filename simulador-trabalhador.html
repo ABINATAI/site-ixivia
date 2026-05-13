@@ -18,23 +18,23 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* A carcaça do celular com o mapa no fundo */
-.mapa-container {
+/* A carcaça do celular com o mapa no fundo */
+        .mapa-container {
             position: relative;
             width: 100%;
-            max-width: 400px; 
-            height: 800px; 
-            max-height: 95vh; 
+            max-width: 400px;
+            height: 800px;
+            max-height: 95vh;
             
-            /* AQUI: Trocamos o link pelo seu mapa de Fortaleza */
-            background-image: url('mapa-meireles.jpg');
+            /* AQUI: O mapa escurecido focado no Meireles */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('mapa-meireles.jpg');
             background-size: cover;
             background-position: center;
             
             border-radius: 35px;
             border: 12px solid #1f2937;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow: hidden; 
+            overflow: hidden;
         }
 
         .map-header {
