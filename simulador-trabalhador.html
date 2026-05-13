@@ -2,12 +2,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mapa de Ganhos | Ixivia</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <style>
-/* Fundo da página */
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
         body {
             background-color: #d1d5db; 
             display: flex;
@@ -15,11 +15,10 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
 
-        /* MOBILE FIRST: No celular, o mapa ocupa a tela toda */
+        /* MOBILE FIRST */
         .mapa-container {
             position: relative;
             width: 100vw;
@@ -30,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* DESKTOP: Se for tela de PC, ele cria a carcaça de celular */
+        /* DESKTOP */
         @media (min-width: 768px) {
             .mapa-container {
                 width: 400px;
@@ -47,24 +46,24 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--branco, #ffffff);
+            background: #ffffff;
             padding: 15px 20px;
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 10;
             text-align: center;
             width: 85%;
-            border-bottom: 3px solid var(--verde-dinheiro, #10b981);
+            border-bottom: 3px solid #10b981;
         }
 
-        .map-header h2 { font-size: 1.1rem; color: var(--texto-escuro, #1f2937); margin-bottom: 2px;}
-        .map-header p { font-size: 0.85rem; color: var(--texto-cinza, #6b7280); }
+        .map-header h2 { font-size: 1.1rem; color: #1f2937; margin: 0 0 2px 0;}
+        .map-header p { font-size: 0.85rem; color: #6b7280; margin: 0; }
         
         .radar-spinner {
             display: inline-block;
             width: 12px;
             height: 12px;
-            border: 2px solid var(--verde-dinheiro, #10b981);
+            border: 2px solid #10b981;
             border-top-color: transparent;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -74,10 +73,9 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Pinos de Dinheiro (Pedidos) */
         .pin-dinheiro {
             position: absolute;
-            background: var(--verde-dinheiro, #10b981);
+            background: #10b981;
             color: white;
             padding: 8px 15px;
             border-radius: 20px;
@@ -87,7 +85,7 @@
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
             transform: translate(-50%, -50%) scale(0);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease-out;
             z-index: 5;
         }
 
@@ -98,108 +96,50 @@
         }
 
         .pin-dinheiro::after {
-            content: '▼';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--verde-dinheiro, #10b981);
-            font-size: 0.8rem;
+            content: '▼'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            color: #10b981; font-size: 0.8rem;
         }
 
-        @keyframes pulsar-verde {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
+        @keyframes pulsar-verde { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
-        /* Modal do Pedido preso DENTRO do celular */
         .modal-pedido {
             position: absolute;
             bottom: -100%;
             left: 0;
             width: 100%;
-            background: var(--branco, #ffffff);
+            background: #ffffff;
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
             padding: 30px 20px;
-            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: bottom 0.4s ease-out;
             z-index: 100;
-            max-height: 85%;
+            max-height: 85vh;
             overflow-y: auto;
-            box-sizing: border-box;
         }
 
         .modal-pedido.ativo { bottom: 0; }
 
-        .fechar-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--texto-cinza, #6b7280);
-            cursor: pointer;
-        }
+        .fechar-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.5rem; color: #6b7280; cursor: pointer; }
 
-        .info-card {
-            background: #f9fafb;
-            border: 1px solid #eee;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .linha-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
+        .info-card { background: #f9fafb; border: 1px solid #eee; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+        .linha-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; color: #1f2937; }
         .linha-info:last-child { margin-bottom: 0; }
 
-        .valor-destaque {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--verde-dinheiro, #10b981);
-            font-weight: 900;
-            margin: 15px 0;
-        }
+        .valor-destaque { text-align: center; font-size: 2.5rem; color: #10b981; font-weight: 900; margin: 15px 0; }
 
-        /* Tela do Bote */
         .tela-download { display: none; text-align: center; padding: 10px 0; }
         .tela-download.ativo { display: block; }
         .detalhes-pedido.oculto { display: none; }
 
-        .lojas-botoes {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
+        .lojas-botoes { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         
         .btn-loja {
-            background: var(--texto-escuro, #1f2937);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            display: block;
-            text-align: center;
+            background: #1f2937; color: white; padding: 12px 20px;
+            border-radius: 8px; text-decoration: none; font-weight: bold;
+            font-size: 1rem; display: block; text-align: center;
         }
-
-        .btn-disabled {
-            background: #d1d5db !important;
-            color: #6b7280 !important;
-            cursor: not-allowed;
-            pointer-events: none;
-            box-shadow: none !important;
-        }
+        .btn-disabled { background: #d1d5db !important; color: #6b7280 !important; cursor: not-allowed; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -211,39 +151,24 @@
             <p>Fique online para receber ofertas.</p>
         </div>
 
-        <!-- Pinos (Inicialmente escondidos via CSS) -->
         <div class="pin-dinheiro" id="pedido-1" style="top: 35%; left: 25%;" onclick="abrirPedido('Roberto M.', '30 peças', 'Lavar e Passar', 'R$ 65,00', '1.2km')">R$ 65,00</div>
         <div class="pin-dinheiro" id="pedido-2" style="top: 65%; left: 70%;" onclick="abrirPedido('Juliana P.', '15 peças', 'Só Lavar', 'R$ 35,00', '800m')">R$ 35,00</div>
         <div class="pin-dinheiro" id="pedido-3" style="top: 45%; left: 55%;" onclick="abrirPedido('Família Souza', 'Mais de 40', 'Lavar + Edredom', 'R$ 110,00', '2.5km')">R$ 110,00</div>
 
-        <!-- Modal de Aceite (Preso DENTRO do celular) -->
         <div class="modal-pedido" id="modal">
             <button class="fechar-modal" onclick="fecharModal()">×</button>
             
-            <!-- Estado 1: Ver detalhes do pedido -->
             <div id="detalhes-pedido" class="detalhes-pedido">
-                <h3 style="color: var(--azul-principal, #2563eb); margin-bottom: 15px;">Novo Pedido Encontrado!</h3>
+                <h3 style="color: #2563eb; margin: 0 0 15px 0;">Novo Pedido Encontrado!</h3>
                 
                 <div class="info-card">
-                    <div class="linha-info">
-                        <span style="color: var(--texto-cinza, #6b7280);">Cliente:</span>
-                        <strong id="mod-cliente">Nome</strong>
-                    </div>
-                    <div class="linha-info">
-                        <span style="color: var(--texto-cinza, #6b7280);">Serviço:</span>
-                        <strong id="mod-servico">Tipo</strong>
-                    </div>
-                    <div class="linha-info">
-                        <span style="color: var(--texto-cinza, #6b7280);">Quantidade:</span>
-                        <strong id="mod-pecas">Qtd</strong>
-                    </div>
-                    <div class="linha-info">
-                        <span style="color: var(--texto-cinza, #6b7280);">Distância:</span>
-                        <strong id="mod-distancia">Xkm</strong>
-                    </div>
+                    <div class="linha-info"><span style="color: #6b7280;">Cliente:</span><strong id="mod-cliente">Nome</strong></div>
+                    <div class="linha-info"><span style="color: #6b7280;">Serviço:</span><strong id="mod-servico">Tipo</strong></div>
+                    <div class="linha-info"><span style="color: #6b7280;">Quantidade:</span><strong id="mod-pecas">Qtd</strong></div>
+                    <div class="linha-info"><span style="color: #6b7280;">Distância:</span><strong id="mod-distancia">Xkm</strong></div>
                 </div>
 
-                <div style="text-align: center; color: var(--texto-cinza, #6b7280); font-size: 0.9rem;">O cliente está pagando:</div>
+                <div style="text-align: center; color: #6b7280; font-size: 0.9rem;">O cliente está pagando:</div>
                 <div class="valor-destaque" id="mod-valor">R$ 0,00</div>
 
                 <button style="width: 100%; font-size: 1.2rem; padding: 18px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);" onclick="aceitarPedido()">
@@ -251,15 +176,13 @@
                 </button>
             </div>
 
-            <!-- Estado 2: O Bote (Download) -->
             <div id="tela-download" class="tela-download">
                 <div style="font-size: 4rem; margin-bottom: 10px;">🚀</div>
-                <h2 style="color: var(--verde-dinheiro, #10b981); margin-bottom: 10px;">Dinheiro te esperando!</h2>
-                <p>Temos dezenas de clientes procurando quem lave roupas na sua região <strong>neste exato momento.</strong></p>
-                <p style="margin-top: 15px; color: var(--texto-cinza, #6b7280);">Baixe o aplicativo gratuito, faça seu cadastro e comece a faturar hoje mesmo:</p>
+                <h2 style="color: #10b981; margin-bottom: 10px;">Dinheiro te esperando!</h2>
+                <p style="color: #1f2937;">Temos dezenas de clientes procurando quem lave roupas na sua região <strong>neste exato momento.</strong></p>
+                <p style="margin-top: 15px; color: #6b7280;">Baixe o aplicativo gratuito, faça seu cadastro e comece a faturar hoje mesmo:</p>
                 
                 <div class="lojas-botoes">
-                    <!-- Aponta para a nova página de recrutamento/download -->
                     <a href="download.html" class="btn-loja" style="background: #10b981;">Baixar Android</a>
                     <a href="#" class="btn-loja btn-disabled">iOS (Em Breve)</a>
                 </div>
@@ -267,47 +190,25 @@
                 <button style="width: 100%; margin-top: 20px; padding: 12px; background: transparent; border: 2px solid #6b7280; color: #6b7280; border-radius: 10px; font-weight: bold; cursor: pointer;" onclick="location.href='index.html'">Voltar ao site</button>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Mágica de fazer os pedidos aparecerem aos poucos
         window.onload = function() {
-            setTimeout(() => {
-                document.getElementById('status-texto').innerHTML = '🟢 3 Pedidos Encontrados!';
-                document.getElementById('pedido-1').classList.add('visivel');
-            }, 1500); 
-
-            setTimeout(() => {
-                document.getElementById('pedido-2').classList.add('visivel');
-            }, 3000); 
-
-            setTimeout(() => {
-                document.getElementById('pedido-3').classList.add('visivel');
-            }, 4500); 
+            setTimeout(() => { document.getElementById('status-texto').innerHTML = '🟢 3 Pedidos Encontrados!'; document.getElementById('pedido-1').classList.add('visivel'); }, 1500); 
+            setTimeout(() => { document.getElementById('pedido-2').classList.add('visivel'); }, 3000); 
+            setTimeout(() => { document.getElementById('pedido-3').classList.add('visivel'); }, 4500); 
         };
 
         function abrirPedido(cliente, pecas, servico, valor, distancia) {
-            document.getElementById('mod-cliente').innerText = cliente;
-            document.getElementById('mod-pecas').innerText = pecas;
-            document.getElementById('mod-servico').innerText = servico;
-            document.getElementById('mod-valor').innerText = valor;
+            document.getElementById('mod-cliente').innerText = cliente; document.getElementById('mod-pecas').innerText = pecas;
+            document.getElementById('mod-servico').innerText = servico; document.getElementById('mod-valor').innerText = valor;
             document.getElementById('mod-distancia').innerText = distancia;
-            
-            document.getElementById('detalhes-pedido').classList.remove('oculto');
-            document.getElementById('tela-download').classList.remove('ativo');
-
+            document.getElementById('detalhes-pedido').classList.remove('oculto'); document.getElementById('tela-download').classList.remove('ativo');
             document.getElementById('modal').classList.add('ativo');
         }
 
-        function fecharModal() {
-            document.getElementById('modal').classList.remove('ativo');
-        }
-
-        function aceitarPedido() {
-            document.getElementById('detalhes-pedido').classList.add('oculto');
-            document.getElementById('tela-download').classList.add('ativo');
-        }
+        function fecharModal() { document.getElementById('modal').classList.remove('ativo'); }
+        function aceitarPedido() { document.getElementById('detalhes-pedido').classList.add('oculto'); document.getElementById('tela-download').classList.add('ativo'); }
     </script>
 </body>
 </html>
