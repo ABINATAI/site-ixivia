@@ -100,7 +100,7 @@
         .pin-2 { top: 60%; left: 70%; animation-delay: 0.5s; }
         .pin-3 { top: 75%; left: 40%; animation-delay: 1s; }
 
-        .modal-negociacao {
+.modal-negociacao {
             position: absolute;
             bottom: -100%; 
             left: 0;
@@ -109,13 +109,14 @@
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            padding: 30px 20px;
+            /* O SEGREDO: Uma margem extra embaixo garantindo que fique acima dos botões do celular */
+            padding: 30px 20px calc(40px + env(safe-area-inset-bottom)); 
             transition: bottom 0.4s ease-out;
             z-index: 100;
-            max-height: 85%;
+            /* Usa a altura dinâmica real da tela, evitando cortes */
+            max-height: 90dvh; 
             overflow-y: auto;
         }
-
         .modal-negociacao.ativo { bottom: 0; }
 
         .fechar-modal {
