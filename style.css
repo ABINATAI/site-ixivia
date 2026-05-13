@@ -54,13 +54,6 @@ header {
     gap: 10px;
 }
 
-.logo-icon {
-    background: var(--azul-principal);
-    color: var(--branco);
-    padding: 5px 10px;
-    border-radius: 8px;
-}
-
 .btn-outline {
     border: 2px solid var(--azul-principal);
     color: var(--azul-principal);
@@ -114,6 +107,12 @@ header {
     transform: translateY(-3px);
     background: var(--azul-escuro);
 }
+
+.btn-green {
+    background: var(--verde-dinheiro);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+.btn-green:hover { background: var(--verde-escuro); }
 
 /* Simuladores */
 .simuladores-section {
@@ -181,12 +180,6 @@ header {
 
 .btn-action:hover { background: var(--azul-escuro); }
 
-.btn-green {
-    background: var(--verde-dinheiro);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-.btn-green:hover { background: var(--verde-escuro); }
-
 /* FAQ e Mascote */
 .faq-section {
     padding: 80px 0;
@@ -211,33 +204,23 @@ header {
 }
 
 .mascote-img {
-    max-width: 180px; /* Controla a largura para não ficar gigante */
+    max-width: 180px;
     height: auto;
     display: block;
     margin: 0 auto;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
 }
 
-/* Ajuste no balão para combinar com o corpo inteiro */
 .balao-fala {
     background: var(--azul-principal);
     color: var(--branco);
     padding: 20px;
     border-radius: 20px;
-    border-top-left-radius: 0; /* Faz a ponta do balão apontar para cima/lado */
+    border-top-left-radius: 0;
     margin-top: 15px;
     box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
     position: relative;
     animation: aparecer 0.3s ease-out forwards;
-}
-
-/* Nova classe para o botão do iOS "Em breve" */
-.btn-disabled {
-    background: #d1d5db !important;
-    color: #6b7280 !important;
-    cursor: not-allowed;
-    pointer-events: none; /* Impede o clique */
-    box-shadow: none !important;
 }
 
 .balao-fala.hidden {
@@ -285,11 +268,12 @@ header {
     color: var(--azul-principal);
 }
 
-/* Rodapé */
-footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--texto-cinza);
+.btn-disabled {
+    background: #d1d5db !important;
+    color: #6b7280 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none !important;
 }
 
 /* =========================================
@@ -302,7 +286,7 @@ footer {
     .hero h1 { font-size: 2.2rem; }
     .hero p { font-size: 1rem; }
     
-    .grid-2 { grid-template-columns: 1fr; } /* Coloca os cards um em cima do outro */
+    .grid-2 { grid-template-columns: 1fr; }
     
     .card { padding: 25px 15px; }
     .card .icon { font-size: 3rem; }
