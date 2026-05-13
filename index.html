@@ -9,14 +9,16 @@
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
+<!-- CABEÇALHO -->
     <header>
         <div class="container header-flex">
             <div class="logo">
-                <span class="logo-icon">IX</span>
+                <!-- Trocamos o quadrado "IX" pelo seu ícone oficial -->
+                <img src="favicon.png" alt="Ícone Ixivia" style="width: 36px; height: 36px; border-radius: 8px;">
                 IXIVIA
             </div>
-            <a href="#simuladores" class="btn-outline">Testar o App</a>
+            <!-- Botão do topo também apontando para o download -->
+            <a href="download.html" class="btn-outline">Baixar App</a>
         </div>
     </header>
 
@@ -25,7 +27,13 @@
         <div class="container">
             <h1>Sua roupa limpa ou<br>dinheiro no seu bolso.</h1>
             <p>Conectamos vizinhos para resolver serviços de lavanderia de forma rápida, segura e sem burocracia.</p>
-            <a href="#simuladores" class="btn-main">Veja como funciona na prática 👇</a>
+            
+            <!-- Agrupamos os botões para ficarem lado a lado no PC ou um em cima do outro no celular -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <a href="#simuladores" class="btn-main">Veja como funciona 👇</a>
+                <!-- Novo botão para os "Zés do download" -->
+                <a href="download.html" class="btn-main btn-green">Baixar o App Agora</a>
+            </div>
         </div>
     </section>
 
