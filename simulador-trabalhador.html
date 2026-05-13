@@ -104,7 +104,7 @@
 
         @keyframes pulsar-verde { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
-        .modal-pedido {
+.modal-pedido {
             position: absolute;
             bottom: -100%;
             left: 0;
@@ -113,10 +113,12 @@
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            padding: 30px 20px;
+            /* O SEGREDO: Margem extra embaixo para proteção */
+            padding: 30px 20px calc(40px + env(safe-area-inset-bottom)); 
             transition: bottom 0.4s ease-out;
             z-index: 100;
-            max-height: 85vh;
+            /* Usa a altura dinâmica real da tela */
+            max-height: 90dvh; 
             overflow-y: auto;
         }
 
