@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- O user-scalable=no impede que o celular dê zoom na tela, mantendo cara de app -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Simulador de Pedido | Ixivia</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* Fundo fora do celular */
-/* Fundo da página */
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
         body {
             background-color: #d1d5db; 
             display: flex;
@@ -16,11 +16,10 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Impede a tela de rolar e quebrar a ilusão do app */
+            overflow: hidden; 
         }
 
-        /* MOBILE FIRST: No celular, o mapa ocupa a tela toda */
+        /* MOBILE FIRST (Fica tela cheia no celular) */
         .mapa-container {
             position: relative;
             width: 100vw;
@@ -28,10 +27,10 @@
             background-image: url('mapa-meireles.jpg');
             background-size: cover;
             background-position: center;
-            overflow: hidden;
+            overflow: hidden; 
         }
 
-        /* DESKTOP: Se for tela de PC, ele cria a carcaça de celular */
+        /* DESKTOP (Vira carcaça de celular no PC) */
         @media (min-width: 768px) {
             .mapa-container {
                 width: 400px; 
@@ -43,13 +42,13 @@
             }
         }
 
-        /* Cabeçalho Flutuante do Mapa */
+        /* Restante dos estilos do simulador */
         .map-header {
             position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--branco, #ffffff);
+            background: #ffffff;
             padding: 15px 25px;
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -58,15 +57,14 @@
             width: 85%;
         }
 
-        .map-header h2 { font-size: 1.1rem; color: var(--azul-principal, #2563eb); margin-bottom: 2px; }
-        .map-header p { font-size: 0.85rem; color: var(--texto-cinza, #6b7280); }
+        .map-header h2 { font-size: 1.1rem; color: #2563eb; margin: 0 0 2px 0; }
+        .map-header p { font-size: 0.85rem; color: #6b7280; margin: 0; }
 
-        /* Pinos (Vizinhos) no Mapa */
         .pin {
             position: absolute;
             width: 40px;
             height: 40px;
-            background: var(--azul-principal, #2563eb);
+            background: #2563eb;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -85,42 +83,31 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 2px solid var(--azul-principal, #2563eb);
+            border: 2px solid #2563eb;
             animation: onda 2s infinite;
         }
 
-        @keyframes pulsar {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1); }
-        }
+        @keyframes pulsar { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+        @keyframes onda { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
 
-        @keyframes onda {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        /* Posições fixas para os pinos testes */
         .pin-1 { top: 35%; left: 30%; }
         .pin-2 { top: 60%; left: 70%; animation-delay: 0.5s; }
         .pin-3 { top: 75%; left: 40%; animation-delay: 1s; }
 
-        /* Card de Negociação (O Modal preso DENTRO do celular) */
         .modal-negociacao {
             position: absolute;
-            bottom: -100%; /* Começa escondido embaixo */
+            bottom: -100%; 
             left: 0;
             width: 100%;
-            background: var(--branco, #ffffff);
+            background: #ffffff;
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
             padding: 30px 20px;
-            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: bottom 0.4s ease-out;
             z-index: 100;
-            max-height: 85%;
+            max-height: 85vh;
             overflow-y: auto;
-            box-sizing: border-box;
         }
 
         .modal-negociacao.ativo { bottom: 0; }
@@ -132,7 +119,7 @@
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: var(--texto-cinza, #6b7280);
+            color: #6b7280;
             cursor: pointer;
         }
 
@@ -156,9 +143,8 @@
             font-size: 1.5rem;
         }
 
-        /* Formulário de Pedido */
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; color: #1f2937; }
         
         select, input[type="number"] {
             width: 100%;
@@ -167,72 +153,36 @@
             border-radius: 10px;
             font-size: 1rem;
             background: #f9fafb;
-            box-sizing: border-box;
         }
 
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: normal;
-        }
+        .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; font-weight: normal; color: #1f2937; }
 
         .proposta-destaque {
             background: #eff6ff;
             padding: 15px;
             border-radius: 10px;
-            border: 2px solid var(--azul-principal, #2563eb);
+            border: 2px solid #2563eb;
             margin-top: 20px;
         }
 
-        .proposta-destaque input {
-            font-size: 1.5rem;
-            color: var(--verde-escuro, #059669);
-            font-weight: bold;
-            text-align: center;
-        }
+        .proposta-destaque input { font-size: 1.5rem; color: #059669; font-weight: bold; text-align: center; }
 
-        /* Tela de Sucesso (O Bote) */
-        .tela-sucesso {
-            display: none;
-            text-align: center;
-            padding: 20px 0;
-        }
-
+        .tela-sucesso { display: none; text-align: center; padding: 20px 0; }
         .tela-sucesso.ativo { display: block; }
         .form-pedido.oculto { display: none; }
 
-        .lojas-botoes {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
+        .lojas-botoes { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         
         .btn-loja {
-            background: var(--texto-escuro, #1f2937);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            display: block;
-            text-align: center;
+            background: #1f2937; color: white; padding: 12px 20px;
+            border-radius: 8px; text-decoration: none; font-weight: bold;
+            font-size: 1rem; display: block; text-align: center;
         }
 
         .btn-disabled {
-            background: #d1d5db !important;
-            color: #6b7280 !important;
-            cursor: not-allowed;
-            pointer-events: none;
-            box-shadow: none !important;
+            background: #d1d5db !important; color: #6b7280 !important;
+            cursor: not-allowed; pointer-events: none;
         }
     </style>
 </head>
@@ -245,24 +195,21 @@
             <p>Toque em um ícone para iniciar</p>
         </div>
 
-        <!-- Pinos no Mapa -->
         <div class="pin pin-1" onclick="abrirModal('Ana', '1.2km')">🧺</div>
         <div class="pin pin-2" onclick="abrirModal('Carlos', '800m')">🧺</div>
         <div class="pin pin-3" onclick="abrirModal('Dona Marta', '2.5km')">🧺</div>
 
-        <!-- Modal de Negociação -->
         <div class="modal-negociacao" id="modal">
             <button class="fechar-modal" onclick="fecharModal()">×</button>
             
             <div class="vizinho-info">
                 <div class="vizinho-foto">👤</div>
                 <div>
-                    <h3 id="nome-vizinho">Nome</h3>
-                    <p style="color: var(--verde-escuro, #059669); font-size: 0.9rem; font-weight: bold;">Verificado • A <span id="distancia-vizinho">Xkm</span></p>
+                    <h3 id="nome-vizinho" style="margin:0; color:#1f2937;">Nome</h3>
+                    <p style="margin:0; color: #059669; font-size: 0.9rem; font-weight: bold;">Verificado • A <span id="distancia-vizinho">Xkm</span></p>
                 </div>
             </div>
 
-            <!-- O Formulário de Ilusão -->
             <div id="form-pedido" class="form-pedido">
                 <div class="form-group">
                     <label>Quantas peças de roupa?</label>
@@ -292,25 +239,23 @@
                 </div>
 
                 <div class="proposta-destaque">
-                    <label style="text-align: center; color: var(--azul-principal, #2563eb);">Sua Proposta (Você decide o preço):</label>
+                    <label style="text-align: center; color: #2563eb; margin-bottom: 5px;">Sua Proposta (Você decide o preço):</label>
                     <div style="position: relative;">
                         <span style="position: absolute; left: 15px; top: 15px; font-size: 1.2rem; color: #666; font-weight: bold;">R$</span>
                         <input type="number" id="valor-proposta" placeholder="Ex: 40,00" style="padding-left: 50px;">
                     </div>
                 </div>
 
-                <button class="btn-main" style="width: 100%; margin-top: 20px; background: #2563eb; color: white; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;" onclick="enviarProposta()">Enviar Proposta</button>
+                <button style="width: 100%; margin-top: 20px; background: #2563eb; color: white; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer;" onclick="enviarProposta()">Enviar Proposta</button>
             </div>
 
-            <!-- A Tela do "Bote" (Call to Action) -->
             <div id="tela-sucesso" class="tela-sucesso">
                 <div style="font-size: 4rem; margin-bottom: 10px;">🎯</div>
-                <h2 style="color: var(--azul-principal, #2563eb); margin-bottom: 10px;">Proposta Pronta!</h2>
-                <p>Sua oferta de <strong id="valor-final" style="color: var(--verde-escuro, #059669); font-size: 1.2rem;">R$ 0,00</strong> para <strong id="nome-final">Nome</strong> está configurada.</p>
-                <p style="margin-top: 15px; color: var(--texto-cinza, #6b7280);">Para enviar o pedido oficial e garantir a segurança, baixe o aplicativo:</p>
+                <h2 style="color: #2563eb; margin-bottom: 10px;">Proposta Pronta!</h2>
+                <p style="color: #1f2937;">Sua oferta de <strong id="valor-final" style="color: #059669; font-size: 1.2rem;">R$ 0,00</strong> para <strong id="nome-final">Nome</strong> está configurada.</p>
+                <p style="margin-top: 15px; color: #6b7280;">Para enviar o pedido oficial e garantir a segurança, baixe o aplicativo:</p>
                 
                 <div class="lojas-botoes">
-                    <!-- Aponta para a nova página de recrutamento/download -->
                     <a href="download.html" class="btn-loja" style="background: #10b981;">Baixar Android</a>
                     <a href="#" class="btn-loja btn-disabled">iOS (Em Breve)</a>
                 </div>
@@ -325,28 +270,18 @@
             document.getElementById('nome-vizinho').innerText = nome;
             document.getElementById('distancia-vizinho').innerText = distancia;
             document.getElementById('nome-final').innerText = nome;
-            
             document.getElementById('form-pedido').classList.remove('oculto');
             document.getElementById('tela-sucesso').classList.remove('ativo');
             document.getElementById('valor-proposta').value = '';
-
             document.getElementById('modal').classList.add('ativo');
         }
 
-        function fecharModal() {
-            document.getElementById('modal').classList.remove('ativo');
-        }
+        function fecharModal() { document.getElementById('modal').classList.remove('ativo'); }
 
         function enviarProposta() {
             const valorInput = document.getElementById('valor-proposta').value;
-            
-            if(!valorInput || valorInput <= 0) {
-                alert("Por favor, digite um valor justo para sua proposta.");
-                return;
-            }
-
+            if(!valorInput || valorInput <= 0) { alert("Por favor, digite um valor justo para sua proposta."); return; }
             document.getElementById('valor-final').innerText = "R$ " + parseFloat(valorInput).toFixed(2).replace('.', ',');
-            
             document.getElementById('form-pedido').classList.add('oculto');
             document.getElementById('tela-sucesso').classList.add('ativo');
         }
