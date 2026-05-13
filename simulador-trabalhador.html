@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Fundo fora do celular */
+/* Fundo da página */
         body {
             background-color: #d1d5db; 
             display: flex;
@@ -16,25 +16,30 @@
             min-height: 100vh;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-/* A carcaça do celular com o mapa no fundo */
+        /* MOBILE FIRST: No celular, o mapa ocupa a tela toda */
         .mapa-container {
             position: relative;
-            width: 100%;
-            max-width: 400px;
-            height: 800px;
-            max-height: 95vh;
-            
-            /* AQUI: O mapa escurecido focado no Meireles */
+            width: 100vw;
+            height: 100vh;
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('mapa-meireles.jpg');
             background-size: cover;
             background-position: center;
-            
-            border-radius: 35px;
-            border: 12px solid #1f2937;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             overflow: hidden;
+        }
+
+        /* DESKTOP: Se for tela de PC, ele cria a carcaça de celular */
+        @media (min-width: 768px) {
+            .mapa-container {
+                width: 400px;
+                height: 800px;
+                max-height: 95vh;
+                border-radius: 35px;
+                border: 12px solid #1f2937;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            }
         }
 
         .map-header {
