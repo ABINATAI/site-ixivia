@@ -4,7 +4,7 @@ const respostas = {
     
     transporte: "Você que manda! Ao fazer o pedido, você escolhe se vai levar até a casa do vizinho ou se quer que ele busque e entregue na sua porta. <br><br><strong>Baixe o app e faça seu 1º pedido com entrega!</strong>",
     
-    recebimento: "O pagamento é 100% seguro pelo aplicativo. O cliente paga antes, o dinheiro fica guardado, e assim que você entrega a roupa limpa, cai direto na sua conta. Sem calotes. <br><br><strong>Baixe o app para cadastrar sua chave PIX!</strong>",
+    recebimento: "O pagamento é 100% entre as partes. Negociação sem interferência do Ixivia, sem taxas. <br><br><strong>Baixe o app para cadastrar sua chave PIX!</strong>",
     
     preco: "Aqui não tem preço fixo. Você negocia direto! O cliente faz uma oferta e o parceiro aceita, simples assim. <br><br><strong>Baixe o aplicativo para ver quanto estão pagando na sua rua agora!</strong>"
 };
