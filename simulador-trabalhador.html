@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* MOBILE FIRST */
+/* 1. PADRÃO: CELULAR (Tela cheia, sem bordas falsas) */
         .mapa-container {
             position: relative;
             width: 100vw;
@@ -27,10 +27,12 @@
             background-size: cover;
             background-position: center;
             overflow: hidden;
+            border: none;
+            border-radius: 0;
         }
 
-        /* DESKTOP */
-        @media (min-width: 768px) {
+        /* 2. EXCEÇÃO: PC E TELAS GRANDES (Cria a carcaça do celular) */
+        @media screen and (min-width: 900px) {
             .mapa-container {
                 width: 400px;
                 height: 800px;
