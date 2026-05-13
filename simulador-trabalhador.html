@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Ganhos | Ixivia</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #e5e7eb; 
+            overflow: hidden; 
+        }
+
+        .mapa-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .map-header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--branco);
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            border-bottom: 3px solid var(--verde-dinheiro);
+        }
+
+        .map-header h2 { font-size: 1.2rem; color: var(--texto-escuro); }
+        .map-header p { font-size: 0.9rem; color: var(--texto-cinza); margin-top: 5px; }
+        
+        .radar-spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--verde-dinheiro);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Pinos de Dinheiro (Pedidos) */
+        .pin-dinheiro {
+            position: absolute;
+            background: var(--verde-dinheiro);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+        }
+
+        .pin-dinheiro.visivel {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: pulsar-verde 2s infinite;
+        }
+
+        .pin-dinheiro::after {
+            content: '▼';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--verde-dinheiro);
+            font-size: 0.8rem;
+        }
+
+        @keyframes pulsar-verde {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Modal do Pedido */
+        .modal-pedido {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: var(--branco);
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            padding: 30px 20px;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+
+        .modal-pedido.ativo { bottom: 0; }
+
+        .fechar-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--texto-cinza);
+            cursor: pointer;
+        }
+
+        .info-card {
+            background: #f9fafb;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .linha-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .linha-info:last-child { margin-bottom: 0; }
+
+        .valor-destaque {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--verde-dinheiro);
+            font-weight: 900;
+            margin: 15px 0;
+        }
+
+        /* Tela do Bote */
+        .tela-download { display: none; text-align: center; padding: 10px 0; }
+        .tela-download.ativo { display: block; }
+        .detalhes-pedido.oculto { display: none; }
+
+        .lojas-botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn-loja {
+            background: var(--texto-escuro);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mapa-container">
+        
+        <div class="map-header">
+            <h2 id="status-texto"><span class="radar-spinner"></span> Rastreando pedidos...</h2>
+            <p>Fique online para receber ofertas na sua região.</p>
+        </div>
+
+        <!-- Pinos (Inicialmente escondidos via CSS) -->
+        <!-- As posições são aleatórias para parecer natural -->
+        <div class="pin-dinheiro" id="pedido-1" style="top: 35%; left: 25%;" onclick="abrirPedido('Roberto M.', '30 peças', 'Lavar e Passar', 'R$ 65,00', '1.2km')">R$ 65,00</div>
+        <div class="pin-dinheiro" id="pedido-2" style="top: 65%; left: 75%;" onclick="abrirPedido('Juliana P.', '15 peças', 'Só Lavar', 'R$ 35,00', '800m')">R$ 35,00</div>
+        <div class="pin-dinheiro" id="pedido-3" style="top: 50%; left: 50%;" onclick="abrirPedido('Família Souza', 'Mais de 40 peças', 'Lavar + Edredom', 'R$ 110,00', '2.5km')">R$ 110,00</div>
+
+    </div>
+
+    <!-- Modal de Aceite -->
+    <div class="modal-pedido" id="modal">
+        <button class="fechar-modal" onclick="fecharModal()">×</button>
+        
+        <!-- Estado 1: Ver detalhes do pedido -->
+        <div id="detalhes-pedido" class="detalhes-pedido">
+            <h3 style="color: var(--azul-principal); margin-bottom: 15px;">Novo Pedido Encontrado!</h3>
+            
+            <div class="info-card">
+                <div class="linha-info">
+                    <span style="color: var(--texto-cinza);">Cliente:</span>
+                    <strong id="mod-cliente">Nome</strong>
+                </div>
+                <div class="linha-info">
+                    <span style="color: var(--texto-cinza);">Serviço:</span>
+                    <strong id="mod-servico">Tipo</strong>
+                </div>
+                <div class="linha-info">
+                    <span style="color: var(--texto-cinza);">Quantidade:</span>
+                    <strong id="mod-pecas">Qtd</strong>
+                </div>
+                <div class="linha-info">
+                    <span style="color: var(--texto-cinza);">Distância:</span>
+                    <strong id="mod-distancia">Xkm</strong>
+                </div>
+            </div>
+
+            <div style="text-align: center; color: var(--texto-cinza); font-size: 0.9rem;">O cliente está pagando:</div>
+            <div class="valor-destaque" id="mod-valor">R$ 0,00</div>
+
+            <button class="btn-main btn-green" style="width: 100%; font-size: 1.2rem; padding: 18px;" onclick="aceitarPedido()">
+                💰 ACEITAR MISSÃO
+            </button>
+        </div>
+
+        <!-- Estado 2: O Bote (Download) -->
+        <div id="tela-download" class="tela-download">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🚀</div>
+            <h2 style="color: var(--verde-dinheiro); margin-bottom: 10px;">Dinheiro te esperando!</h2>
+            <p>Temos dezenas de clientes como esse procurando alguém para lavar roupas na sua região <strong>neste exato momento.</strong></p>
+            <p style="margin-top: 15px; color: var(--texto-cinza);">Baixe o aplicativo gratuito, faça seu cadastro em 2 minutos e comece a faturar hoje mesmo:</p>
+            
+            <div class="lojas-botoes">
+                <a href="#" class="btn-loja" onclick="alert('Redirecionando para Google Play...')">Baixar Android</a>
+                <a href="#" class="btn-loja" onclick="alert('Redirecionando para App Store...')">Baixar iOS</a>
+            </div>
+            
+            <button class="btn-outline" style="width: 100%; margin-top: 20px;" onclick="location.href='index.html'">Voltar ao site</button>
+        </div>
+    </div>
+
+    <script>
+        // Mágica de fazer os pedidos aparecerem aos poucos
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('status-texto').innerHTML = '🟢 3 Pedidos Encontrados!';
+                document.getElementById('pedido-1').classList.add('visivel');
+            }, 1500); // 1.5s aparece o primeiro
+
+            setTimeout(() => {
+                document.getElementById('pedido-2').classList.add('visivel');
+            }, 3000); // 3s aparece o segundo
+
+            setTimeout(() => {
+                document.getElementById('pedido-3').classList.add('visivel');
+            }, 4500); // 4.5s aparece o terceiro
+        };
+
+        // Preenche os dados do Modal
+        function abrirPedido(cliente, pecas, servico, valor, distancia) {
+            document.getElementById('mod-cliente').innerText = cliente;
+            document.getElementById('mod-pecas').innerText = pecas;
+            document.getElementById('mod-servico').innerText = servico;
+            document.getElementById('mod-valor').innerText = valor;
+            document.getElementById('mod-distancia').innerText = distancia;
+            
+            // Reseta telas
+            document.getElementById('detalhes-pedido').classList.remove('oculto');
+            document.getElementById('tela-download').classList.remove('ativo');
+
+            // Mostra Modal
+            document.getElementById('modal').classList.add('ativo');
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').classList.remove('ativo');
+        }
+
+        // Troca para a tela de download
+        function aceitarPedido() {
+            document.getElementById('detalhes-pedido').classList.add('oculto');
+            document.getElementById('tela-download').classList.add('ativo');
+        }
+    </script>
+</body>
+</html>
