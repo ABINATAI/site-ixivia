@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ixivia | Baixar Versão de Teste</title>
+    <!-- Aqui está o Favicon que faltava! -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --azul-principal: #2563eb;
+            --azul-escuro: #1e40af;
+            --verde-dinheiro: #10b981;
+            --fundo-claro: #f9fafb;
+            --texto-escuro: #1f2937;
+            --texto-cinza: #6b7280;
+            --alerta-bg: #fffbeb;
+            --alerta-borda: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: #e5e7eb;
+            color: var(--texto-escuro);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 450px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--azul-principal); }
+        .header p { color: var(--texto-cinza); font-size: 0.95rem; margin-top: 5px; font-weight: 600;}
+
+        /* CAIXA DE ALERTA AMIGÁVEL */
+        .alert-box {
+            background: var(--alerta-bg);
+            border-left: 4px solid var(--alerta-borda);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+        }
+        
+        .alert-box h3 {
+            color: #b45309;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .alert-box p {
+            color: #78350f;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .alert-box p:last-child { margin-bottom: 0; }
+
+        .step { margin-bottom: 25px; }
+        .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .step-number {
+            background: var(--azul-principal); color: #fff;
+            width: 28px; height: 28px; display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; font-size: 0.9rem; font-weight: bold;
+        }
+        .step h2 { font-size: 1.2rem; font-weight: 700; color: var(--texto-escuro); }
+        .step p { color: var(--texto-cinza); font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; }
+
+        /* VÍDEO COMPACTO */
+        .video-tutorial-container {
+            width: 180px; 
+            margin: 0 auto 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid #f3f4f6;
+            background: #000;
+            aspect-ratio: 720 / 1600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .video-tutorial-container video { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-direct {
+            display: block; width: 100%; padding: 16px;
+            background: var(--azul-principal); color: #fff;
+            text-decoration: none; font-weight: bold; font-size: 1rem;
+            text-align: center; border-radius: 10px; transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+        .btn-direct:active { transform: scale(0.98); background: var(--azul-escuro); }
+
+        .checkbox-container {
+            margin-top: 20px; display: flex; align-items: flex-start; gap: 12px;
+            background: var(--fundo-claro); padding: 15px; border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .checkbox-container input { width: 22px; height: 22px; accent-color: var(--verde-dinheiro); cursor: pointer; margin-top: 2px;}
+        .checkbox-container label { font-size: 0.95rem; flex: 1; cursor: pointer; font-weight: 600; color: var(--texto-escuro); }
+
+        #download-area {
+            display: none; margin-top: 25px; padding-top: 25px;
+            border-top: 2px dashed #e5e7eb; text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .error-box {
+            background: #fef2f2; border: 1px solid #fecaca;
+            padding: 15px; border-radius: 8px; color: #991b1b;
+            font-size: 0.85rem; margin-top: 20px; text-align: left; line-height: 1.5;
+        }
+
+        .footer { 
+            text-align: center; margin-top: 30px; color: var(--texto-cinza); font-size: 0.85rem; 
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .footer-links a { color: var(--azul-principal); text-decoration: none; font-weight: 600; margin: 0 5px; }
+        .footer-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="logo">IXIVIA</div>
+            <p>Acesso Antecipado (App em Testes)</p>
+        </div>
+
+        <div class="alert-box">
+            <h3>🚧 Aplicativo em fase de testes</h3>
+            <p>Ainda não lançamos o Ixivia para o público geral. Estamos selecionando os primeiros usuários para testar o aplicativo na prática.</p>
+            <p>Para conseguir baixar na Play Store, seu e-mail precisa ser autorizado no nosso sistema.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2>Liberar o acesso</h2>
+            </div>
+            <p>Assista ao vídeo abaixo. Depois, clique no botão para entrar no nosso Grupo de Testadores e liberar seu e-mail.</p>
+            
+            <div class="video-tutorial-container">
+                <video autoplay loop muted playsinline>
+                    <source src="tutorial-grupo.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <a href="https://groups.google.com/g/IXIVIA-TESTE/about" target="_blank" class="btn-direct">1. SOLICITAR ACESSO AO GRUPO</a>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="check-joined">
+                <label for="check-joined">Confirmo que já entrei no grupo e quero liberar o download.</label>
+            </div>
+        </div>
+
+        <div id="download-area">
+            <div class="step-header" style="justify-content: center;">
+                <div class="step-number" style="background: var(--verde-dinheiro);">2</div>
+                <h2>Baixar Aplicativo</h2>
+            </div>
+            <p style="color: var(--texto-cinza); font-size: 0.95rem; margin-bottom: 20px;">Seu acesso está autorizado. Você já pode instalar o aplicativo oficial no seu celular Android.</p>
+            
+            <a href="https://play.google.com/store/apps/details?id=br.com.ixivia.app" class="btn-direct" style="background: var(--verde-dinheiro); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">2. BAIXAR NA PLAY STORE</a>
+            
+            <div class="error-box">
+                <strong>Atenção:</strong> Se a Play Store disser "App não disponível", é porque o Google ainda está processando seu e-mail. Volte, aguarde de 1 a 2 minutos e atualize a página da loja.
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="legal.html#termos">Termos de Uso</a> | 
+                <a href="legal.html#privacidade">Política de Privacidade</a>
+            </div>
+            <span>&copy; 2026 Ixivia. O jeito humano de usar a tecnologia.</span>
+        </div>
+    </div>
+
+    <script>
+        const checkJoined = document.getElementById('check-joined');
+        const downloadArea = document.getElementById('download-area');
+
+        checkJoined.addEventListener('change', function() {
+            if(this.checked) {
+                downloadArea.style.display = 'block';
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 150);
+            } else {
+                downloadArea.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
