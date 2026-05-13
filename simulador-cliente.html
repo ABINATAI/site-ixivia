@@ -100,24 +100,30 @@
         .pin-2 { top: 60%; left: 70%; animation-delay: 0.5s; }
         .pin-3 { top: 75%; left: 40%; animation-delay: 1s; }
 
-.modal-negociacao {
+/* O Modal agora flutua no meio da tela */
+        .modal-negociacao {
             position: absolute;
-            bottom: -100%; 
-            left: 0;
-            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; /* Deixa uma margem elegante nas laterais */
             background: #ffffff;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            /* FORÇA BRUTA: 100px de espaço no fundo para fugir de qualquer botão do celular */
-            padding: 30px 20px 100px 20px; 
-            transition: bottom 0.4s ease-out;
+            border-radius: 25px; /* Arredondado nos 4 cantos */
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            padding: 25px 20px; /* Reduzimos o padding */
+            opacity: 0; /* Começa invisível */
+            pointer-events: none; /* Não deixa clicar sem querer */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 100;
-            max-height: 90dvh; 
+            max-height: 85vh;
             overflow-y: auto;
-            box-sizing: border-box;
         }
-        .modal-negociacao.ativo { bottom: 0; }
+
+        .modal-negociacao.ativo { 
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         .fechar-modal {
             position: absolute;
